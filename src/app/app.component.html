@@ -1,0 +1,56 @@
+<ngx-ui-loader
+  [fgsColor]="loaderService.config.fgsColor ?? ''"
+  [fgsPosition]="'center-center'"
+  [fgsSize]="100"
+  [fgsType]="'ball-spin'"
+  [bgsColor]="'blue'"
+  [bgsOpacity]="50"
+  [bgsPosition]="'center-center'"
+  [bgsSize]="100"
+  [bgsType]="'ball-spin'"
+  [gap]="0"
+  [logoPosition]="'center-center'"
+  [logoSize]="100"
+  [text]="'loading'"
+  [textColor]="'blue'"
+  [textPosition]="'center-center'"
+></ngx-ui-loader>
+
+<app-mobile-header></app-mobile-header>
+
+<div class="kt-grid kt-grid--hor kt-grid--root">
+  <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+
+    <app-side></app-side>
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+
+      <app-header></app-header>
+      <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+        <app-sub-header></app-sub-header>
+
+        <!-- begin:: Content -->
+        <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+          <router-outlet></router-outlet>
+        </div>
+        <!-- end:: Content -->
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>
+
+<!-- end:: Page -->
+
+
+
+<!-- begin::Scrolltop -->
+<div id="kt_scrolltop" class="kt-scrolltop">
+  <i class="fa fa-arrow-up"></i>
+</div>
+
+<!-- end::Scrolltop -->
+
+
+
+
