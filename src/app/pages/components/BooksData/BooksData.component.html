@@ -1,0 +1,158 @@
+﻿<div class="row">
+    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
+      <div class="kt-portlet kt-portlet--mobile">
+                        <div class="kt-portlet__head kt-portlet__head--lg">
+                            <div class="kt-portlet__head-label">
+                                <span class="kt-portlet__head-icon">
+                                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                                </span>
+                                <h3 class="kt-portlet__head-title">
+                                    بيانات الكتاب
+                                </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="kt-portlet__head-wrapper">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+
+          <form class="kt-form" #depForm="ngForm" >
+            <div class="kt-portlet__body">
+              
+                <div class="form-group">
+                    <label> رقم السجل </label>
+                    <input type="text" class="form-control" required  
+                     name="lib_rec_no" >
+                  </div>
+
+                  <div class="form-group">
+                    <label>  اسم الكتاب </label>
+                    <input type="text" class="form-control" required  
+                     name="lib_book_name">
+                  </div>
+
+
+                  <div class="form-group">
+                    <label> مرجع </label>
+                    <input type="checkbox" class="form-control" required  
+                     name="lib_ref">
+                  </div>
+
+    
+
+
+                  <div class="form-group">
+                    <label> التصنيف  </label>
+                    <select [(ngModel)]="model.classif">
+                        <option *ngFor="let classif of classifs" [value]="classif">
+                            {{ classif.def_name }}
+                        </option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label> كتاب </label>
+                    <input type="checkbox" class="form-control" required  
+                     name="lib_book">
+                  </div>
+
+
+                  <div class="form-group">
+                    <label> التصنيف  </label>
+                    <select [(ngModel)]="model.classif1">
+                        <option *ngFor="let classif1 of classifs1" [value]="classif1">
+                            {{ classif1.def_name }}
+                        </option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label> اسم المؤلف </label>
+                    <input type="text" class="form-control" required
+                        [(ngModel)]="model.lib_author_name" name="lib_author_name" />
+                  </div>
+
+                  <div class="form-group">
+                    <label>تاريخ الاصدار   </label>
+                    <input type="date" class="form-control" required
+                        [(ngModel)]="model.date" name="date" />
+                  </div>
+
+                  <div class="form-group">
+                    <label> عدد الصفحات</label>
+                    <input type="number" class="form-control" required
+                        [(ngModel)]="model.lib_page_no" name="lib_page_no" />
+                  </div>
+
+            <div class="kt-portlet__foot">
+              <div class="kt-form__actions">
+                <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
+                <button type="reset" (click)="resetForm()"  class="btn btn-secondary">Cancel</button>
+              </div>
+            </div>
+            </div>
+          </form>
+                            
+                        </div>
+                    </div>
+      <!-- <router-outlet></router-outlet> -->
+    </div>
+    
+</div>
+
+  
+  <!--Begin::Row-->
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
+      <div class="kt-portlet kt-portlet--mobile">
+                        <div class="kt-portlet__head kt-portlet__head--lg">
+                            <div class="kt-portlet__head-label">
+                                <span class="kt-portlet__head-icon">
+                                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                                </span>
+                                <h3 class="kt-portlet__head-title">
+                                    بيانات الكتب
+                                </h3>
+                            </div>
+                            
+                        </div>
+                        <div class="kt-portlet__body">
+
+                            <!--begin: Datatable -->
+                            <table class="table table-striped- table-bordered table-hover table-checkable" >
+                                <thead>
+                                    <tr>
+                                        <th> المسلسل</th>
+                                        <th> اسم الكتاب</th>
+                                        <th> تاريخ الاصدار</th>
+                                        <th> عدد الصفحات</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let employee of employees">
+                                        <td>{{booksdata.Id}}</td>
+                                        <td>{{booksdata.lib_book_name}}</td>
+                                        <td>{{booksdata.date}}</td>
+                                        <td>{{booksdata.lib_page_no}}</td>
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()" class="btn btn-secondary">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--end: Datatable -->
+                        </div>
+                    </div>
+      <!-- <router-outlet></router-outlet> -->
+    </div>
+    
+  </div>
+
+
+  <!--End::Row-->
