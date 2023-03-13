@@ -21,54 +21,29 @@
           <form class="kt-form" #depForm="ngForm" >
             <div class="kt-portlet__body">
               
-
                 <div class="form-group">
-
                     <label>
                         الصف:
                     
                     </label>
-             
-                            <input class="form-control" name="level"
-                                   type="text"
-                                   matInput
-                                   [(ngModel)]="selectedlevel"
-                                   (ngModelChange)="change_level($event)"
-                                   placeholder="أختر الصف"
-                                   [formControl]="myControllev"
-                                   [matAutocomplete]="autolevel"
-                                   forceSelection="lev_name">
-                            <mat-autocomplete autoActiveFirstOption #autolevel="matAutocomplete" [displayWith]="displayFnlev">
-                                <mat-option *ngFor="let level of filteredOptionslev  | async" [value]="level">
-                                    {{ level.lev_name }}
-                                </mat-option>
-                            </mat-autocomplete>
+                    <select [(ngModel)]="model.selectedlevel">
+                        <option *ngFor="let level of levels" [value]="level">
+                            {{ level.lev_name }}
+                        </option>
+                    </select>
+</div>
 
-          
-
-
-
-                    </div>
                     <div class="form-group">
                     <label>
                         الفصل:
                     
                     </label>
                 
-                            <input class="form-control" name="class"
-                                   type="text"
-                                   matInput
-                                   [(ngModel)]="selectedclass"
-                                   (ngModelChange)="change_class($event)"
-                                   placeholder="أختر الفصل"
-                                   [formControl]="myControlclass"
-                                   [matAutocomplete]="autoclass"
-                                   forceSelection="class_name">
-                            <mat-autocomplete autoActiveFirstOption #autoclass="matAutocomplete" [displayWith]="displayFnclass">
-                                <mat-option *ngFor="let class of filteredOptionsclass  | async" [value]="class">
-                                    {{ class.class_name }}
-                                </mat-option>
-                            </mat-autocomplete>
+                    <select [(ngModel)]="model.selectedclass">
+                        <option *ngFor="let class of classes" [value]="class">
+                            {{ class.class_name }}
+                        </option>
+                    </select>
                  
                 </div>
 
@@ -81,27 +56,18 @@
                     
                     </label>
                  
-                            <input class="form-control" name="student"
-                                   type="text"
-                                   matInput
-                                   [(ngModel)]="selectedStudent"
-                                   placeholder="أختر الطالب"
-                                   [formControl]="myControlStudent"
-                                   [matAutocomplete]="autostudent"
-                                   forceSelection="student_name">
-                            <mat-autocomplete autoActiveFirstOption #autostudent="matAutocomplete" [displayWith]="displayFnStudent">
-                                <mat-option *ngFor="let student of filteredOptionsStudents  | async" [value]="student">
-                                    {{ student.student_name }}
-                                </mat-option>
-                            </mat-autocomplete>
+                    <select [(ngModel)]="model.selectedStudent">
+                        <option *ngFor="let student of students" [value]="student">
+                            {{ student.student_name }}
+                        </option>
+                    </select>
                     
                     </div>
                     <div class="form-group">
                     <label>التاريخ:</label>
                   
-                            <input class="form-control" [(ngModel)]="behave_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="picker" placeholder="أختر التاريخ">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.behave_date" name="behave_date" />
 
                     
                 </div>
@@ -143,7 +109,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    Departments
+                                    حالة سلوكية
                                 </h3>
                             </div>
                             
@@ -154,19 +120,25 @@
                             <table class="table table-striped- table-bordered table-hover table-checkable" >
                                 <thead>
                                     <tr>
-                                        <th>Department ID</th>
-                                        <th>Department Name</th>
-                                        <th>Department Desc</th>
-                                        <th>Department Supervisor Name</th>
+                                        <th> ID</th>
+                                        <th> Name</th>
+                                        <th> Code</th>
+                                        <th> Description</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let dep of deps">
-                                        <td>{{dep.dep_id}}</td>
-                                        <td>{{dep.dep_name}}</td>
-                                        <td>{{dep.dep_desc}}</td>
-                                        <td>{{dep.dep_supervisor_name}}</td>
+                                    <tr *ngFor="let behavstatus of behavstatuses">
+                                        <td>{{behavstatus.lev_name}}</td>
+                                        <td>{{behavstatus.class_name}}</td>
+                                        <td>{{behavstatus.student_name}}</td>
+                                        <td>{{behavstatus.behave_date}}</td>
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
+                                        </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                             <!--end: Datatable -->
