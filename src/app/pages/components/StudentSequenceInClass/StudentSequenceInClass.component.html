@@ -1,4 +1,4 @@
-﻿<div class="row">
+<div class="row">
     <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
       <div class="kt-portlet kt-portlet--mobile">
                         <div class="kt-portlet__head kt-portlet__head--lg">
@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                   تسلسل الطلبة في الفصل
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -22,87 +22,30 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
-                    <label>
-                        القسم:
-        
-                    </label>
-          
-                    <select [(ngModel)]="model.department">
-                        <option *ngFor="let department of departments" [value]="department">
-                            {{ department.dep_name }}
-                        </option>
-                    </select>
-                    
-                    </div>
+                            <label>
+                                الصف
+                             
+                            </label>
 
-                    <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
+                            <select [(ngModel)]="model.level">
+                                <option *ngFor="let level of levels" [value]="level">
+                                    {{ level.lev_name }}
+                                </option>
+                            </select>
+
         
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        التاريخ:
-                     
-                    </label>
-          
-                    <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
-                    </div>
+                            <label>
+                                الفصل
+                            </label>
 
-                    <div class="form-group">
-                    <label>
-                        الوقت:
-                    </label>
-               
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
-
-             
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        الأسم:
-                   
-                    </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
-                    </div>
-
-                    <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
-               
-                </div>
-
-                <div class="form-group">
-                    <label>المدعوون:</label>
-                 
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
-                    
-                    </div>
-                    <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
-
-                 
-                </div>
-
-                <div class="form-group">
-                    <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
+                            <select [(ngModel)]="model.class">
+                                <option *ngFor="let class of classes" [value]="class">
+                                    {{ class.class_name }}
+                                </option>
+                            </select>
                 </div>
 
 
@@ -133,7 +76,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    تسلسل الطلبة في الفصل
                                 </h3>
                             </div>
                             
@@ -145,18 +88,16 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
-                                        <th> القسم</th>
-                                        <th> العنوان</th>
-                                        <th> التاريخ</th>
+                                        <th> الصف</th>
+                                        <th> الفصل</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let seqstudent of seqstudents">
+                                        <td>{{seqstudent.id}}</td>
+                                        <td>{{seqstudent.lev_name}}</td>
+                                        <td>{{seqstudent.class_name}}</td>
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
@@ -174,3 +115,5 @@
   </div>
 
   <!--End::Row-->
+
+<!-- <kt-seqstudent-list></kt-seqstudent-list> -->

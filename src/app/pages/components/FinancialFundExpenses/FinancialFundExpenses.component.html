@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    الصندوق المالي
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -22,90 +22,44 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
-                    <label>
-                        القسم:
-        
-                    </label>
-          
-                    <select [(ngModel)]="model.department">
-                        <option *ngFor="let department of departments" [value]="department">
-                            {{ department.dep_name }}
-                        </option>
-                    </select>
-                    
+                    <label>مسلسل:</label>
+                  
+                    <input type="number" class="form-control" required  
+                disabled>
+
                     </div>
 
                     <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
-        
+                    <label>الصنف:</label>
+                  
+                    <input type="text" class="form-control" required  
+                    name="type_name" >
+
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        التاريخ:
-                     
-                    </label>
+                    <label>المبلغ:</label>
           
+                    <input type="number" class="form-control" required  
+                    name="price" >
+
+                    </div>
+                    <div class="form-group">
+                    <label>التاريخ:</label>
+                 
                     <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
-                    </div>
-
-                    <div class="form-group">
-                    <label>
-                        الوقت:
-                    </label>
-               
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
-
-             
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        الأسم:
-                   
-                    </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
-                    </div>
-
-                    <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
-               
-                </div>
-
-                <div class="form-group">
-                    <label>المدعوون:</label>
-                 
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
-                    
-                    </div>
-                    <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
-
-                 
+                    [(ngModel)]="model.date" name="date" />
+           
                 </div>
 
                 <div class="form-group">
                     <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
+                    <textarea type="text" class="form-control" required
+                    [(ngModel)]="model.notes" name="notes" ></textarea>
+            
                 </div>
 
-
+    
             <div class="kt-portlet__foot">
               <div class="kt-form__actions">
                 <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
@@ -133,7 +87,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    الصندوق المالي
                                 </h3>
                             </div>
                             
@@ -145,18 +99,18 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
-                                        <th> القسم</th>
-                                        <th> العنوان</th>
+                                        <th> الصنف</th>
+                                        <th> المبلغ</th>
                                         <th> التاريخ</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let financialbox of financialboxs">
+                                        <td>{{financialbox.id}}</td>
+                                        <td>{{financialbox.type_name}}</td>
+                                        <td>{{financialbox.price}}</td>
+                                        <td>{{financialbox.date}}</td>
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>

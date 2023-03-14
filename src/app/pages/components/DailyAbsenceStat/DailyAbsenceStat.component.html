@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    احصائية الغياب اليومية
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -21,91 +21,107 @@
           <form class="kt-form" #depForm="ngForm" >
             <div class="kt-portlet__body">
               
+
                 <div class="form-group">
                     <label>
-                        القسم:
-        
+                        الصف:
+                      
                     </label>
-          
-                    <select [(ngModel)]="model.department">
-                        <option *ngFor="let department of departments" [value]="department">
-                            {{ department.dep_name }}
+
+                    <select [(ngModel)]="model.lev_name">
+                        <option *ngFor="let Levels of Levels" [value]="Levels">
+                            {{ Levels.lev_name }}
                         </option>
                     </select>
-                    
-                    </div>
-
-                    <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
-        
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        التاريخ:
-                     
-                    </label>
-          
-                    <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
+                  
                     </div>
 
                     <div class="form-group">
                     <label>
-                        الوقت:
+                        الشعبة:
+                      
                     </label>
-               
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
-
-             
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        الأسم:
-                   
-                    </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
-                    </div>
-
-                    <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
+       
+                    <select [(ngModel)]="model.def_name">
+                        <option *ngFor="let branch of branch" [value]="branch">
+                            {{ branch.def_name }}
+                        </option>
+                    </select>
                
                 </div>
 
                 <div class="form-group">
-                    <label>المدعوون:</label>
+                    <label>العدد الكلي:</label>
                  
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.total_num" name="total_num" />
                     
                     </div>
-                    <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
 
-                 
+                    <div class="form-group">
+                    <label>
+                        الغياب:
+                    
+                    </label>
+         
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.absence_num" name="absence_num" />
+                    
                 </div>
 
                 <div class="form-group">
-                    <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
+                    <label>الحضور:</label>
+              
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.attendance_num" name="attendance_num" />
+
+                    </div>
+                    <div class="form-group">
+                    <label>نسبة الحضور:</label>
+             
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.stu_att_score" name="stu_att_score" />
+                   
                 </div>
 
+     
 
+                <div class="form-group">
+                    <label>العدد الكلي:</label>
+               
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.teach_total_num" name="teach_total_num" />
+
+                    </div>
+
+                    <div class="form-group">
+                    <label>
+                        الغياب:
+             
+                    </label>
+                  
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.teach_absence" name="teach_absence" />
+                    
+                </div>
+
+                <div class="form-group">
+                    <label>الحضور:</label>
+            
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.teach_attend" name="teach_attend" />
+                   
+                    </div>
+
+                    <div class="form-group">
+                    <label>نسبة الحضور:</label>
+                 
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.teach_att_score" name="teach_att_score" />
+                   
+                </div>
+
+         
             <div class="kt-portlet__foot">
               <div class="kt-form__actions">
                 <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
@@ -133,7 +149,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    احصائية الغياب اليومية
                                 </h3>
                             </div>
                             
@@ -145,18 +161,18 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
-                                        <th> القسم</th>
-                                        <th> العنوان</th>
-                                        <th> التاريخ</th>
+                                        <th> الصف</th>
+                                        <th> العدد الكلي</th>
+                                 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let absencestat of absencestats">
+                                        <td>{{absencestat.id}}</td>
+                                        <td>{{absencestat.lev_name}}</td>
+                                        <td>{{absencestat.total_num}}</td>
+                                   
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
@@ -174,3 +190,6 @@
   </div>
 
   <!--End::Row-->
+
+
+

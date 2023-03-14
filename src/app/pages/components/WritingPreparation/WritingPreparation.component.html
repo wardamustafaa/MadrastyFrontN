@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    كتابة التحضير
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -22,90 +22,86 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
-                    <label>
-                        القسم:
-        
-                    </label>
-          
-                    <select [(ngModel)]="model.department">
-                        <option *ngFor="let department of departments" [value]="department">
-                            {{ department.dep_name }}
+                    <label> المادة</label>
+                    <select [(ngModel)]="model.subjects">
+                        <option *ngFor="let subjects of subjects" [value]="subjects">
+                            {{ subjects.subject_name }}
                         </option>
                     </select>
-                    
-                    </div>
+                  </div>
 
-                    <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
-        
-                </div>
 
-                <div class="form-group">
-                    <label>
-                        التاريخ:
-                     
-                    </label>
-          
+                  <div class="form-group">
+                    <label> التاريخ </label>
                     <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
-                    </div>
+                        [(ngModel)]="model.ta7dier_date" name="ta7dier_date" />
+                  </div>
 
-                    <div class="form-group">
-                    <label>
-                        الوقت:
-                    </label>
-               
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
+                  <div class="form-group">
+                    <label> الأسبوع</label>
+                    <select [(ngModel)]="model.weeks">
+                        <option *ngFor="let weeks of weeks" [value]="weeks">
+                            {{ weeks.viewValue }}
+                        </option>
+                    </select>
+                  </div>
 
-             
-                </div>
+                  <div class="form-group">
+                    <label> اليوم</label>
+                    <select [(ngModel)]="model.days">
+                        <option *ngFor="let days of days" [value]="days">
+                            {{ days.viewValue }}
+                        </option>
+                    </select>
+                  </div>
 
-                <div class="form-group">
-                    <label>
-                        الأسم:
-                   
-                    </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
-                    </div>
 
-                    <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
-               
-                </div>
 
                 <div class="form-group">
-                    <label>المدعوون:</label>
+                    <label> الصف</label>
+                    <select [(ngModel)]="model.levels">
+                        <option *ngFor="let levels of levels" [value]="levels">
+                            {{ level.lev_name }}
+                        </option>
+                    </select>
                  
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label> عنوان الدرس</label>
+                        <input type="text" class="form-control" required
+                        [(ngModel)]="model.ta7dier_name" name="ta7dier_name" >
+                      </div>
+
+
+                      <div class="form-group">
+                        <label> تم الشرح</label>
+                        <input type="checkbox" class="form-control" required>
+                      </div>
+
+                      <div class="form-group">
+                        <label>متأخر</label>
+                        <input type="checkbox" class="form-control" required>
+                      </div>
+
+                      <div class="form-group">
+                        <label>رفع التحضير</label>
+                        <input id="side_dep_chck" name="side_dep_chck" (change)="side_dep_chck_change($event)" [checked]="dep_check" type="checkbox" class="form-control" required>
+                      </div>
+               
+
+                      <div class="form-group">
                     
-                    </div>
+                        <input type="file" class="form-control" [disabled]="!disable" (change)="handleFileSelect($event)" >
+                      </div>
+
+
+              
                     <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
+                <ckeditor [editor]="Editor" [disabled]="disable" [data]="data" [(ngModel)]="data" (change)="onChange($event)" [ngModelOptions]="{standalone: true}"></ckeditor>
+</div>
 
-                 
-                </div>
-
-                <div class="form-group">
-                    <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
-                </div>
-
-
+        
             <div class="kt-portlet__foot">
               <div class="kt-form__actions">
                 <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
@@ -133,7 +129,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    كتابة التحضير
                                 </h3>
                             </div>
                             
@@ -145,18 +141,18 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
-                                        <th> القسم</th>
-                                        <th> العنوان</th>
-                                        <th> التاريخ</th>
+                                        <th> الاسم</th>
+                                        <th> الصف</th>
+                                        <th> الحالة</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let ta7derprep of ta7derpreps">
+                                        <td>{{ta7derprep.id}}</td>
+                                        <td>{{ta7derprep.subject_name}}</td>
+                                        <td>{{ta7derprep.lev_name}}</td>
+                                        <td>{{ta7derprep.ta7dier_date}}</td>
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
@@ -172,5 +168,6 @@
     </div>
     
   </div>
-
   <!--End::Row-->
+
+    <!-- <kt-ta7deirs-list></kt-ta7deirs-list> -->

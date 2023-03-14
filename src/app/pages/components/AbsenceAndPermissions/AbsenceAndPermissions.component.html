@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                  غيابات/استئذانات المعلمين
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -22,89 +22,29 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
-                    <label>
-                        القسم:
-        
-                    </label>
-          
-                    <select [(ngModel)]="model.department">
-                        <option *ngFor="let department of departments" [value]="department">
-                            {{ department.dep_name }}
-                        </option>
-                    </select>
-                    
-                    </div>
 
-                    <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
-        
+                            <label>الموظف</label>
+
+                            <select [(ngModel)]="model.emp">
+                                <option *ngFor="let emp of emp" [value]="emp">
+                                    {{ emp.emp_name }}
+                                </option>
+                            </select>
+                </div>
+                <div class="form-group">
+                            <label>الرقم المدني</label>
+
+                            <input type="number" class="form-control" required
+                                [(ngModel)]="model.civil_id" name="civil_id" />
+
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        التاريخ:
-                     
-                    </label>
-          
-                    <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
-                    </div>
+                            <label>رقم الملف</label>
+                            <input type="number" class="form-control" required
+                            [(ngModel)]="model.file_id" name="file_id" />
 
-                    <div class="form-group">
-                    <label>
-                        الوقت:
-                    </label>
-               
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
-
-             
                 </div>
-
-                <div class="form-group">
-                    <label>
-                        الأسم:
-                   
-                    </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
-                    </div>
-
-                    <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
-               
-                </div>
-
-                <div class="form-group">
-                    <label>المدعوون:</label>
-                 
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
-                    
-                    </div>
-                    <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
-
-                 
-                </div>
-
-                <div class="form-group">
-                    <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
-                </div>
-
 
             <div class="kt-portlet__foot">
               <div class="kt-form__actions">
@@ -133,7 +73,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    غيابات/استئذانات المعلمين
                                 </h3>
                             </div>
                             
@@ -145,18 +85,18 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
-                                        <th> القسم</th>
-                                        <th> العنوان</th>
-                                        <th> التاريخ</th>
+                                        <th> الموظف</th>
+                                        <th> الرقم المدني</th>
+                                        <th> رقم الملف</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let absenceperm of absenceperms">
+                                        <td>{{absenceperm.id}}</td>
+                                        <td>{{absenceperm.emp_name}}</td>
+                                        <td>{{absenceperm.civil_id}}</td>
+                                        <td>{{absenceperm.file_id}}</td>
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
@@ -174,3 +114,5 @@
   </div>
 
   <!--End::Row-->
+
+    <!-- <kt-ezons-list-edit-state></kt-ezons-list-edit-state> -->

@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    تشكيل فرق الخطة الأستراتيجية
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -22,89 +22,82 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
+                    <label>الفريق:</label>
+                
+                    <select [(ngModel)]="model.teams_type">
+                        <option *ngFor="let teams_type of teams_type" [value]="teams_type">
+                            {{ teams_type.def_name }}
+                        </option>
+                    </select>
+
+                    </div>
+                    <div class="form-group">
                     <label>
-                        القسم:
-        
+                        القسم
+              
                     </label>
-          
-                    <select [(ngModel)]="model.department">
+               
+                    <select [(ngModel)]="model.dep_name">
                         <option *ngFor="let department of departments" [value]="department">
                             {{ department.dep_name }}
                         </option>
                     </select>
-                    
-                    </div>
-
-                    <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
-        
+     
                 </div>
 
                 <div class="form-group">
                     <label>
-                        التاريخ:
+                        أسم الفريق
                      
                     </label>
-          
-                    <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
+               
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.name" name="name" >
+
+    
                     </div>
 
                     <div class="form-group">
                     <label>
-                        الوقت:
+                        موظف
+                    
                     </label>
-               
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
+                
+                    <select [(ngModel)]="model.emp_name">
+                        <option *ngFor="let emp of Employees" [value]="emp">
+                            {{ emp.emp_name }}
+                        </option>
+                    </select>
 
-             
+
+                  
                 </div>
 
                 <div class="form-group">
                     <label>
-                        الأسم:
-                   
+                        الاعضاء
+                     
                     </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
-                    </div>
-
-                    <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
-               
-                </div>
-
-                <div class="form-group">
-                    <label>المدعوون:</label>
                  
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
+                    <select [(ngModel)]="model.emp_name">
+                        <option *ngFor="let emp of Employees" [value]="emp">
+                            {{ emp.emp_name }}
+                        </option>
+                    </select>
+
                     
                     </div>
                     <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
+                    <label>
+                        اهداف الفريق
 
+                    </label>
                  
-                </div>
+                            <textarea class="form-control" [(ngModel)]="goals">
+</textarea>
 
-                <div class="form-group">
-                    <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
+                
                 </div>
-
 
             <div class="kt-portlet__foot">
               <div class="kt-form__actions">
@@ -133,7 +126,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    تشكيل فرق الخطة الأستراتيجية
                                 </h3>
                             </div>
                             
@@ -145,18 +138,18 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
+                                        <th> الفريق</th>
                                         <th> القسم</th>
-                                        <th> العنوان</th>
-                                        <th> التاريخ</th>
+                                        <th> الموظف</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let strategicplan of strategicplans">
+                                        <td>{{strategicplan.id}}</td>
+                                        <td>{{strategicplan.teams_type}}</td>
+                                        <td>{{strategicplan.dep_name}}</td>
+                                        <td>{{strategicplan.emp_name}}</td>
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>

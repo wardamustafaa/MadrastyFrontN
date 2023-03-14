@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    بطاقة رعاية طالب متفوق
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -22,87 +22,78 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
-                    <label>
-                        القسم:
-        
-                    </label>
-          
-                    <select [(ngModel)]="model.department">
-                        <option *ngFor="let department of departments" [value]="department">
-                            {{ department.dep_name }}
-                        </option>
-                    </select>
-                    
+                            <label>
+                                المادة
+                            </label>
+                            <select [(ngModel)]="model.subject_name">
+                                <option *ngFor="let subject of subjects" [value]="subject">
+                                    {{ subject.subject_name }}
+                                </option>
+                            </select>
+                 
                     </div>
 
                     <div class="form-group">
-                    <label>العنوان:</label>
-                 
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_loc" name="event_loc" />
-        
+                            <label>
+                                الصف
+                            </label>
+
+                            <select [(ngModel)]="model.lev_name">
+                                <mat-option *ngFor="let level of levels" [value]="level">
+                                    {{ level.lev_name }}
+                                </option>
+                            </select>
+         
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        التاريخ:
-                     
-                    </label>
-          
-                    <input type="date" class="form-control" required
-                    [(ngModel)]="model.event_date" name="event_date" />
-                       
-                    </div>
+                            <label>
+                                الفصل
+                            </label>
 
-                    <div class="form-group">
-                    <label>
-                        الوقت:
-                    </label>
+                            <select [(ngModel)]="model.class_name">
+                                <mat-option *ngFor="let class of classes" [value]="class">
+                                    {{ class.class_name }}
+                                </option>
+                            </select>
                
-                    <input type="time" class="form-control" required
-                    [(ngModel)]="model.event_time" name="event_time" />
-
-             
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        الأسم:
-                   
-                    </label>
-          
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_name" name="event_name" />
-                   
                     </div>
 
                     <div class="form-group">
-                    <label>
-                        مركز العمل:
-                    </label>
-             
-                    <input type="text" class="form-control" required
-                    [(ngModel)]="model.event_site" name="event_site" />
-               
+                            <label>
+                                الطالب
+                            </label>
+
+                            <select [(ngModel)]="model.student_name">
+                                <mat-option *ngFor="let student of students" [value]="student">
+                                    {{ student.student_name }}
+                                </option>
+                            </select>
+
                 </div>
 
                 <div class="form-group">
-                    <label>المدعوون:</label>
-                 
-                            <textarea class="form-control" [(ngModel)]="model.event_invitees" name="event_invitees"></textarea>
-                    
+                            <label>جوانب الأبداع</label>
+                            <textarea type="text" class="form-control" required
+                            [(ngModel)]="model.good_ebda3" name="good_ebda3" >
+                        </textarea>
                     </div>
-                    <div class="form-group">
-                    <label>الهدف:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_objectives" name="event_objectives"></textarea>
 
-                 
+                    <div class="form-group">
+                            <label>طرق التحفيز</label>
+                            <textarea type="text" class="form-control" required
+                            [(ngModel)]="model.good_tahfeez" name="good_tahfeez" >
+                        </textarea>
+
                 </div>
 
+
                 <div class="form-group">
-                    <label>ملاحظات:</label>
-                    <textarea class="form-control" [(ngModel)]="model.event_desc" name="event_desc"></textarea>
-                 
+                            <label>النتائج</label>
+                            <textarea type="text" class="form-control" required
+                            [(ngModel)]="model.good_result" name="good_result" >
+                        </textarea>
+
                 </div>
 
 
@@ -133,7 +124,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    ندوة / محاضرة جديدة
+                                    بطاقة رعاية طالب متفوق
                                 </h3>
                             </div>
                             
@@ -145,18 +136,18 @@
                                 <thead>
                                     <tr>
                                         <th> المسلسل</th>
-                                        <th> القسم</th>
-                                        <th> العنوان</th>
-                                        <th> التاريخ</th>
+                                        <th> المادة</th>
+                                        <th> الصف</th>
+                                        <th> الطالب</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let event of events">
-                                        <td>{{event.id}}</td>
-                                        <td>{{event.dep_name}}</td>
-                                        <td>{{event.event_loc}}</td>
-                                        <td>{{event.event_date}}</td>
+                                    <tr *ngFor="let goodstudent of goodstudents">
+                                        <td>{{goodstudent.id}}</td>
+                                        <td>{{goodstudent.subject_name}}</td>
+                                        <td>{{goodstudent.lev_name}}</td>
+                                        <td>{{goodstudent.student_name}}</td>
                                         <td> 
                                             <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
                                             <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
@@ -174,3 +165,5 @@
   </div>
 
   <!--End::Row-->
+
+    <!-- <kt-GoodBadStudentsCards-list></kt-GoodBadStudentsCards-list> -->
