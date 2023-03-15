@@ -26,28 +26,20 @@
                         القسم 
                       
                     </label>
-              
-                            <select class="form-control" required
-                                        formControlName="selecteddepartment"
-                                        [(ngModel)]="selecteddepartment"
-                                        placeholder="القسم المسؤول">
-                                <option *ngFor="let department of departments" [value]="department">
-                                    {{ department.dep_name }}
-                                </option>
-                            </select>
-                            <mat-error *ngIf="
-form1.controls.selecteddepartment.hasError('required') &&
-(form1.controls.selecteddepartment.dirty || form1.controls.selecteddepartment.touched)
-">
-                                من فضلك أختر القسم
-                            </mat-error>
+                    <select [(ngModel)]="model.department">
+                        <option *ngFor="let department of departments" [value]="department">
+                            {{ department.dep_name }}
+                        </option>
+                    </select>
+                    
                     
                     </div>
                   
                     <div class="form-group">
                     <label>المناسبة:</label>
-                 
-                            <input class="form-control" [(ngModel)]="party_occ" [ngModelOptions]="{standalone: true}" matInput placeholder="مناسبة الحفل">
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.party_occ" name="party_occ" />
+
 
                
                 </div>
@@ -57,23 +49,16 @@ form1.controls.selecteddepartment.hasError('required') &&
                         التاريخ:
  
                     </label>
-               
-                            <input class="form-control" formControlName="party_date" required matInput
-                                   [value]="party_date"
-                                   [matDatepicker]="picker" [(ngModel)]="party_date" placeholder="تاريخ الحفل">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker disabled="false"></mat-datepicker>
-                            <mat-error *ngIf="
-form1.controls.party_date.hasError('required') &&
-(form1.controls.party_date.dirty || form1.controls.party_date.touched)
-">
-                                من فضلك أختر تاريخ الحفل
-                            </mat-error>
+                    <input type="date" class="form-control" required
+                    [(ngModel)]="model.party_date" name="party_date" >
+
+                     
       </div>
       <div class="form-group">
                     <label>المدة:</label>
-           
-                            <input class="form-control" [(ngModel)]="party_duration" [ngModelOptions]="{standalone: true}" matInput placeholder="مدة الحفل" type="number">
+                    <input type="number" class="form-control" required
+                    [(ngModel)]="model.party_duration" name="party_duration" />
+
 
               
                 </div>
@@ -83,35 +68,34 @@ form1.controls.party_date.hasError('required') &&
                        المقر:
                      
                     </label>
-                 
-                            <input class="form-control" [(ngModel)]="party_loc" formControlName="party_loc" required matInput placeholder="مقر الحفل">
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.party_loc" name="party_loc" />
 
-                            <mat-error *ngIf="
-form1.controls.party_loc.hasError('required') &&
-(form1.controls.party_loc.dirty || form1.controls.party_loc.touched)
-">
-                                من فضلك ادخل مقر الحفل
-                            </mat-error>
+                        
             
                     </div>
                     <div class="form-group">
                     <label>الراعي:</label>
-            
-                            <input class="form-control" [(ngModel)]="party_sponsor" [ngModelOptions]="{standalone: true}" matInput placeholder="راعي الحفل">
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.party_sponsor" name="party_sponsor" />
+
+      
 
                 
                 </div>
 
                 <div class="form-group">
                     <label>المدعوون:</label>
-                 
-                            <textarea class="form-control" [(ngModel)]="party_invitees" [ngModelOptions]="{standalone: true}" matInput placeholder="المدعوون"></textarea>
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.party_invitees" name="party_invitees" />
+
+
          
                     </div>
                     <div class="form-group">
                     <label>الجهات الخارجية:</label>
                  
-                            <textarea class="form-control" [(ngModel)]="external_part" [ngModelOptions]="{standalone: true}" matInput placeholder="الجهات الخارجية المشاركة"></textarea>
+                            <textarea class="form-control" [(ngModel)]="external_part"></textarea>
                      
                     
                 </div>
@@ -119,7 +103,7 @@ form1.controls.party_loc.hasError('required') &&
                 <div class="form-group">
                     <label>الملاحظات:</label>
           
-                            <textarea class="form-control" [(ngModel)]="party_desc" [ngModelOptions]="{standalone: true}" matInput placeholder="ملاحظات/وصف"></textarea>
+                            <textarea class="form-control" [(ngModel)]="party_desc"></textarea>
                 
                 </div>
 
@@ -151,7 +135,7 @@ form1.controls.party_loc.hasError('required') &&
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    Departments
+                                    اضافة حفل مدرسي جديد
                                 </h3>
                             </div>
                             
@@ -162,19 +146,25 @@ form1.controls.party_loc.hasError('required') &&
                             <table class="table table-striped- table-bordered table-hover table-checkable" >
                                 <thead>
                                     <tr>
-                                        <th>Department ID</th>
-                                        <th>Department Name</th>
-                                        <th>Department Desc</th>
-                                        <th>Department Supervisor Name</th>
+                                        <th> المسلسل</th>
+                                        <th> القسم</th>
+                                        <th> المناسبة</th>
+                                        <th> التاريخ</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let dep of deps">
-                                        <td>{{dep.dep_id}}</td>
-                                        <td>{{dep.dep_name}}</td>
-                                        <td>{{dep.dep_desc}}</td>
-                                        <td>{{dep.dep_supervisor_name}}</td>
+                                    <tr *ngFor="let schoolparty of schoolparties">
+                                        <td>{{schoolparty.id}}</td>
+                                        <td>{{schoolparty.dep_name}}</td>
+                                        <td>{{schoolparty.party_occ}}</td>
+                                        <td>{{schoolparty.party_date}}</td>
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
+                                        </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                             <!--end: Datatable -->

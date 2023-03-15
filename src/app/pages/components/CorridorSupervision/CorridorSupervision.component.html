@@ -7,7 +7,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                 اضافه اجنحة
+									اجتماع مشرفي الأجنحة
                                 </h3>
                             </div>
                             <div class="kt-portlet__head-toolbar">
@@ -21,42 +21,39 @@
           <form class="kt-form" #depForm="ngForm" >
             <div class="kt-portlet__body">
               
-                <div class="form-group">
-                    <label>المسلسل:</label>
-     
-                            <input class="form-control" [(ngModel)]="corridor_id" placeholder="مسلسل الجناح" [ngModelOptions]="{standalone: true}" matInput type="text" disabled>
+				<div class="form-group">
+					<label>
+						التاريخ
+					</label>
+                    <input type="date" class="form-control" required
+                    [(ngModel)]="model.corr_meet_date" name="corr_meet_date" >
+					
+					</div>
+					<div class="form-group">
+					<label>
+						الزمان
+					</label>
+                    <input type="time" class="form-control" required
+                    [(ngModel)]="model.corr_meet_time" name="corr_meet_time" />
 
-                </div>
-                <div class="form-group">
-                    <label>
-                         الجناح:
-                       
-                    </label>
-  
-                            <input class="form-control" [(ngModel)]="corridor_name" formControlName="corridor_name" required matInput placeholder="اسم الجناح" type="text">
 
-                            <mat-error *ngIf="
-form1.controls.corridor_name.hasError('required') &&
-(form1.controls.corridor_name.dirty || form1.controls.corridor_name.touched)
-">
-                                من فضلك أدخل اسم الجناح
-                            </mat-error>
+				</div>
 
-                 
-                </div>
+				<div class="form-group">
+					<label>
+						المكان
 
-                <div class="form-group">
-                    <label>وصف الجناح:</label>
-             
-                            <textarea class="form-control" [(ngModel)]="corridor_desc" formControlName="corridor_desc" matInput placeholder="وصف الجناح" type="text"></textarea>
+					</label>
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.corr_meet_loc" name="corr_meet_loc" />
 
-                      
-                    </div>
 
+					
+					</div>
+			
 
            
-
-
+         
             <div class="kt-portlet__foot">
               <div class="kt-form__actions">
                 <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
@@ -84,7 +81,7 @@ form1.controls.corridor_name.hasError('required') &&
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    Departments
+                                    اجتماع مشرفي الأجنحة
                                 </h3>
                             </div>
                             
@@ -95,19 +92,25 @@ form1.controls.corridor_name.hasError('required') &&
                             <table class="table table-striped- table-bordered table-hover table-checkable" >
                                 <thead>
                                     <tr>
-                                        <th>Department ID</th>
-                                        <th>Department Name</th>
-                                        <th>Department Desc</th>
-                                        <th>Department Supervisor Name</th>
+                                        <th> المسلسل</th>
+                                        <th> التاريخ</th>
+                                        <th> الزمان</th>
+                                        <th> المكان</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let dep of deps">
-                                        <td>{{dep.dep_id}}</td>
-                                        <td>{{dep.dep_name}}</td>
-                                        <td>{{dep.dep_desc}}</td>
-                                        <td>{{dep.dep_supervisor_name}}</td>
+                                    <tr *ngFor="let corrsuper of corrsupers">
+                                        <td>{{corrsuper.id}}</td>
+                                        <td>{{corrsuper.corr_meet_date}}</td>
+                                        <td>{{corrsuper.corr_meet_time}}</td>
+                                        <td>{{corrsuper.corr_meet_loc}}</td>
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
+                                        </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                             <!--end: Datatable -->
@@ -119,4 +122,3 @@ form1.controls.corridor_name.hasError('required') &&
   </div>
 
   <!--End::Row-->
-
