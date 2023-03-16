@@ -22,10 +22,13 @@
             <div class="kt-portlet__body">
               
                 <div class="form-group">
-                            <!--<mat-label>تاريخ</mat-label>-->
-                            <input class="form-control" [(ngModel)]="date" [ngModelOptions]="{standalone: true}" required (dateChange)="date_Change($event)" matInput [matDatepicker]="picker" placeholder="التاريخ">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                      
+
+                            <label> تاريخ</label>
+                            <input type="date" class="form-control" required
+                            [(ngModel)]="model.date" name="date" />
+
+                    
                 </div>
            
                     <!-- <kt-Takeem_master-details_report-list></kt-Takeem_master-details_report-list> -->
@@ -45,11 +48,9 @@
                
 
                     <div class="form-group">
-                            <!--<mat-label>ملاحظات</mat-label>-->
-                            <textarea class="form-control" [(ngModel)]="notes" name="ntoes"
-                                      matInput
-                                      [ngModelOptions]="{standalone: true}"
-                                      placeholder="ملاحظات"
+                        <label> ملاحظات  </label>
+                         
+                            <textarea class="form-control" [(ngModel)]="model.notes" name="ntoes"
                                       [(value)]="notes"></textarea>
 
                 </div>
@@ -82,7 +83,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    Departments
+                                    زيارة رئيس القسم
                                 </h3>
                             </div>
                             
@@ -93,19 +94,23 @@
                             <table class="table table-striped- table-bordered table-hover table-checkable" >
                                 <thead>
                                     <tr>
-                                        <th>Department ID</th>
-                                        <th>Department Name</th>
-                                        <th>Department Desc</th>
-                                        <th>Department Supervisor Name</th>
+                                        <th> المسلسل</th>
+                                        <th> التاريخ</th>
+                                 
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let dep of deps">
-                                        <td>{{dep.dep_id}}</td>
-                                        <td>{{dep.dep_name}}</td>
-                                        <td>{{dep.dep_desc}}</td>
-                                        <td>{{dep.dep_supervisor_name}}</td>
+                                    <tr *ngFor="let DepManagerVisit of DepManagerVisits">
+                                        <td>{{DepManagerVisit.id}}</td>
+                                        <td>{{DepManagerVisit.date}}</td>
+                                
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
+                                        </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                             <!--end: Datatable -->

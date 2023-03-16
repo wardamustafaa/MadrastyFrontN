@@ -23,41 +23,36 @@
               
                 <div class="form-group">
                     <label>التاريخ:</label>
-             
-                            <input class="form-control" [(ngModel)]="maint_date" [ngModelOptions]="{standalone: true}" matInput [matDatepicker]="dp3" placeholder="التاريخ">
-                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-
+                    <input type="date" class="form-control" required
+                    [(ngModel)]="model.maint_date" name="maint_date" />
                      
                     </div>
 
 
                     <div class="form-group">
                     <label>نوع الصيانة:</label>
-                  
-                            <input class="form-control" [(ngModel)]="maint_type" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="نوع الصيانة">
-
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.maint_type" name="maint_type" />
           
                 </div>
 
                 <div class="form-group">
                     <label>المكان:</label>
-                  
-                            <input class="form-control" [(ngModel)]="maint_loc" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="المكان">
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.maint_loc" name="maint_loc" />
 
                     </div>
                     <div class="form-group">
                     <label>انجاز العمل:</label>
-                 
-                            <input class="form-control" [(ngModel)]="maint_work" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="انجاز العمل">
-
+                    <input type="text" class="form-control" required
+                    [(ngModel)]="model.maint_work" name="maint_work" />
                     
                 </div>
 
                 <div class="form-group">
                     <label>ملاحظات:</label>
                 
-                            <textarea class="form-control" [(ngModel)]="maint_notes" [ngModelOptions]="{standalone: true}" type="text" matInput placeholder="ملاحظات">
+                            <textarea class="form-control" [(ngModel)]="model.maint_notes" type="text">
 </textarea>
 
               
@@ -92,7 +87,7 @@
                                     <i class="kt-font-brand flaticon2-line-chart"></i>
                                 </span>
                                 <h3 class="kt-portlet__head-title">
-                                    Departments
+                                    متابعة الصيانة
                                 </h3>
                             </div>
                             
@@ -103,19 +98,25 @@
                             <table class="table table-striped- table-bordered table-hover table-checkable" >
                                 <thead>
                                     <tr>
-                                        <th>Department ID</th>
-                                        <th>Department Name</th>
-                                        <th>Department Desc</th>
-                                        <th>Department Supervisor Name</th>
+                                        <th> المسلسل</th>
+                                        <th> التاريخ</th>
+                                        <th> نوع الصيانة</th>
+                                
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let dep of deps">
-                                        <td>{{dep.dep_id}}</td>
-                                        <td>{{dep.dep_name}}</td>
-                                        <td>{{dep.dep_desc}}</td>
-                                        <td>{{dep.dep_supervisor_name}}</td>
+                                    <tr *ngFor="let maintenance of maintenances">
+                                        <td>{{maintenance.id}}</td>
+                                        <td>{{maintenance.maint_date}}</td>
+                                        <td>{{maintenance.maint_type}}</td>
+                                 
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
+                                        </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                             <!--end: Datatable -->
