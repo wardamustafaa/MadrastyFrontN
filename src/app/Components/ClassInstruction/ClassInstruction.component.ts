@@ -24,8 +24,8 @@ export class ClassInstructionComponent implements OnInit {
 	displayedColumns: string[] = ['Id', 'level_name', 'class_name', 'topic','notes', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id: 0,

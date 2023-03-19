@@ -19,8 +19,8 @@ export class LevelComponent implements OnInit {
 	displayedColumns: string[] = ['lev_id', 'lev_name', 'lev_desc', 'mr7la_name', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id:0,

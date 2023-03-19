@@ -22,8 +22,8 @@ export class GroupInstructionComponent implements OnInit {
 	displayedColumns: string[] = ['Id', 'group_number', 'sessions_number','notes', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id: 0,

@@ -21,9 +21,6 @@ import { NgxUiLoaderHttpModule } from 'ngx-ui-loader';
 import { NgxUiLoaderConfig } from 'ngx-ui-loader/public-api';
 import { PhaseComponent } from './Components/Phases/Phases.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort'
 import { SwotComponent } from './Components/Swot/Swot.component';
 import { DepartmentComponent } from './Components/Departments/Department.copmponent';
 import { DelayComponent } from './Components/Delay/Delay.component';
@@ -51,6 +48,9 @@ import { StatusComponent } from './Components/Status/Status.component';
 import { SuggesstionsComponent } from './Components/Suggesstions/Suggesstion.component';
 import { TestMetricComponent } from './Components/TestMetric/TestMetric.component';
 import { MentalityInquiresComponent } from './Components/MentalityInquiries/MentalityInquiries.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 // declare const toastr: Toastr;
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {

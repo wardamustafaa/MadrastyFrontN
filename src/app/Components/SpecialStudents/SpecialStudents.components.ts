@@ -27,8 +27,8 @@ export class SpecialStudentsComponent implements OnInit {
 
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id:0,

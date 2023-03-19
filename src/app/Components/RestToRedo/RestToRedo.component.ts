@@ -25,8 +25,8 @@ export class RestToRedoComponent implements OnInit {
 	displayedColumns: string[] = ['Id', 'LevelName', 'ClassName','StudentName','civil_id', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 
 	model = {

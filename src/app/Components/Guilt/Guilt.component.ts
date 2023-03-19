@@ -26,8 +26,8 @@ export class GuiltComponent implements OnInit {
 	displayedColumns: string[] = ['Id', 'Name', 'Date','StudentName', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
     constructor( private GuiltDataServices: GuiltDataServices,
 		public layoutService: LayoutService,

@@ -24,8 +24,8 @@ export class ExcellentStudentsComponent implements OnInit {
 	displayedColumns: string[] = ['Id', 'LevelName', 'ClassName', 'Name', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id:0,

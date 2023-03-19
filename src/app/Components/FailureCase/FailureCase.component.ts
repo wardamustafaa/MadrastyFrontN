@@ -25,8 +25,8 @@ export class FailureCaseComponent implements OnInit {
 	displayedColumns: string[] = ['Id', 'student_name', 'fail_date', 'fail_reason', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id:0,

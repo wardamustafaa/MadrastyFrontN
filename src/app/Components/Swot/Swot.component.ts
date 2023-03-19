@@ -20,8 +20,8 @@ export class SwotComponent implements OnInit {
 	displayedColumns: string[] = ['ser', 'dep_name', 'strength', 'weakness','actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	model = {
 		id:0,

@@ -30,7 +30,7 @@ import { SwotComponent } from './Components/Swot/Swot.component';
 import { TestMetricComponent } from './Components/TestMetric/TestMetric.component';
 
 const routes: Routes = [
-  {path:'',component: MentalityInquiresComponent}
+  {path:'',component: DepartmentComponent}
 ];
 
 @NgModule({

@@ -18,8 +18,8 @@ export class PhaseComponent implements OnInit {
 	displayedColumns: string[] = ['mr7la_id', 'mr7la_name', 'mr7la_code', 'mr7la_desc', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort; 
-	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
 	modalTitle = 'New Phase'
 
