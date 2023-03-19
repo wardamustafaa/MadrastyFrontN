@@ -6,7 +6,8 @@ import { TestComponent } from './comontnets/test/test.component';
 
 @NgModule({
   declarations: [
-    TestComponent
+    TestComponent,
+    
   ],
   imports: [
     CommonModule

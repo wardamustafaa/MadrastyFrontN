@@ -1,0 +1,236 @@
+
+<style>
+    mat-table  {
+        background-color: white;    
+    }
+
+    th, td{
+        color:black;
+        background-color: white;
+        padding: 10px;
+    }
+
+    mat-paginator{
+        color:black;
+        font-size: 14px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(213, 215, 216);
+        border-collapse: collapse;
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="kt-font-brand flaticon2-line-chart"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        Individual Cases
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            <div class="dropdown dropdown-inline">
+                                <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="la la-download"></i> Export
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="kt-nav">
+                                        <li class="kt-nav__section kt-nav__section--first">
+                                            <span class="kt-nav__section-text">Choose an option</span>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-print"></i>
+                                                <span class="kt-nav__link-text">Print</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-copy"></i>
+                                                <span class="kt-nav__link-text">Copy</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                <span class="kt-nav__link-text">Excel</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-text-o"></i>
+                                                <span class="kt-nav__link-text">CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-pdf-o"></i>
+                                                <span class="kt-nav__link-text">PDF</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            &nbsp;
+                            <button class="btn btn-brand btn-elevate btn-icon-sm" type="button" data-toggle="modal"
+                                data-target="#kt_modal_4_2" id="modalOpener" >
+                                <i class="la la-plus"></i>
+                                New Record
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+
+                <mat-table #table  [dataSource]="dataSource" matSort class="table table-borderd">
+
+                    <ng-container matColumnDef="Id"  >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No.  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Id}}  </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="LevelName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level </th>
+                        <td mat-cell *matCellDef="let element"> {{element.LevelName}}  </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ClassName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Class </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ClassName}}  </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="StudentName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Student Name  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.StudentName}}  </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef>تفاعلات</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                                <button class="btn btn-info" matTooltip="Edit" (click)="edit(element)">
+                                    Edit
+                                </button>&nbsp;
+    
+                                <button class="btn btn-danger" matTooltip="Delete" (click)="delete(element)">
+                                    Delete
+                                </button>&nbsp;
+                        </mat-cell>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"> </tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+                </mat-table>
+               <mat-paginator [pageSizeOptions]="[10]"></mat-paginator> 
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="modal fade" id="kt_modal_4_2" style="border-radius: 25px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="border-radius: 25px;">
+            <div class="modal-header bg-primary text-light" style="border-radius: 50px;">
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h5 id="exampleModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" style="color: white !important;" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="kt-form" #dep2Form="ngForm">
+                        <div class="kt-portlet__body">
+                          
+                            <div class="form-group">
+                                <label> Case Type</label>
+                                <textarea type="text" class="form-control" required  
+                                    [(ngModel)]="model.caseType" name="caseType" ></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Level Name </label>
+                                <select [(ngModel)]="model.levelName">
+                                    <option *ngFor="let level of levels" [value]="level">
+                                        {{ level.level_nama }}
+                                    </option>
+                                </select>
+                              </div>
+
+                            <div class="form-group">
+                                <label> Class Name</label>
+                                <select [(ngModel)]="model.className">
+                                    <option *ngFor="let class of classes" [value]="class">
+                                        {{ class.class_name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Student Name</label>
+                                <select [(ngModel)]="model.studentName">
+                                    <option *ngFor="let student of studentList" [value]="student">
+                                        {{ student.student_name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Nationality </label>
+                                <select>
+                                    <option *ngFor="let nat of nationalities" [value]="nat">
+                                        {{ nat.def_name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Date of birth   </label>
+                                <input type="date" class="form-control" name="dob" />
+                            </div>
+                          
+                            <div class="form-group">
+                                <label> Date of file opening</label>
+                                <input type="date" class="form-control" required  
+                                    [(ngModel)]="model.dateOfFileOpening" name="date" />
+                            </div>
+
+                            <div class="form-group">
+                                <label> Following throught slide </label>
+                                <select>
+                                    <option *ngFor="let slide of sildes" [value]="slide">
+                                        {{ slide.def_name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Transfer Procedures</label>
+                                <textarea type="text" class="form-control" required  
+                                    [(ngModel)]="model.transferProcedures" name="transferProcedures" ></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label> Results</label>
+                                <textarea type="test" class="form-control" required  
+                                    [(ngModel)]="model.results" name="results" ></textarea>
+                            </div>
+
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" (click)="submitForm()" class="btn btn-primary">Submit</button>
+                <button type="reset" (click)="resetForm()" id="modalCloser" class="btn btn-secondary"
+                    data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
