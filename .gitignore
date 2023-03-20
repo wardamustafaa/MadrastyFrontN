@@ -127,3 +127,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+*.vsidx
+*.sqlite
+*.sqlite-journal
+/.vs/MadrastyFrontN/FileContentIndex/read.lock
