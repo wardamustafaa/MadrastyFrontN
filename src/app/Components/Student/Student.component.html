@@ -1,0 +1,474 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
+      <div class="kt-portlet kt-portlet--mobile">
+                        <div class="kt-portlet__head kt-portlet__head--lg">
+                            <div class="kt-portlet__head-label">
+                                <span class="kt-portlet__head-icon">
+                                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                                </span>
+                                <h3 class="kt-portlet__head-title">
+                                    Add Student
+                                </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="kt-portlet__head-wrapper">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+
+                            <form class="kt-form"  >
+                                <div class="kt-portlet__body">
+
+                                    <div class="kt-portlet__head kt-portlet__head--lg">
+                                        <div class="kt-portlet__head-label">
+                                            <span class="kt-portlet__head-icon">
+                                                <i class="kt-font-brand flaticon2-line-chart"></i>
+                                            </span>
+                                            <h3 class="kt-portlet__head-text">
+                                                Basic Data
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Name </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.StudentName" name="StudentName" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Civil No. </label>
+                                        <input type="number" max="99999999999" class="form-control" required  
+                                            [(ngModel)]="model.StudentCivilianId" name="StudentCivilianId" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Nationality </label>
+                                        <select [(ngModel)]="model.StudentNationality">
+                                            <option *ngFor="let nat of nationalities" [value]="nat">
+                                                {{ nat.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Sex</label>
+                                        <select [(ngModel)]="model.StudentSex" >
+                                            <option *ngFor="let sex of sex" [value]="sex">
+                                                {{ sex.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Date of birth   </label>
+                                        <input type="date" class="form-control" required  
+                                            [(ngModel)]="model.StudentDob" name="StudentDob" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1"> Age In Yeay</label>
+                                        
+                                        <input type="number" class="form-control" required
+                                            [(ngModel)]="model.StudentAgeYear" name="StudentAgeYear" />
+                        
+                                        <label for="exampleInputPassword1"> Age In Month</label>
+                                        
+                                        <input type="number" class="form-control" required
+                                            [(ngModel)]="model.StudentAgeMonth" name="StudentAgeMonth" />
+                        
+                                        <label for="exampleInputPassword1"> Age In Day</label>
+                                        
+                                        <input type="number" class="form-control" required
+                                            [(ngModel)]="model.StudentAgeDay" name="StudentAgeDay" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Religion</label>
+                                        <select [(ngModel)]="model.StudentReligion">
+                                            <option *ngFor="let religion of religions" [value]="religion">
+                                                {{ religion.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Region</label>
+                                        <select [(ngModel)]="model.StudentDistrict">
+                                            <option *ngFor="let region of regions" [value]="region">
+                                                {{ region.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Acceptance Reason </label>
+                                        <select [(ngModel)]="model.StudentAcceptanceReason">
+                                            <option *ngFor="let reason of reasons" [value]="reason">
+                                                {{ reason.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> School </label>
+                                        <select [(ngModel)]="model.StudentSchool">
+                                            <option *ngFor="let school of schools" [value]="school">
+                                                {{ school.school_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Phase </label>
+                                        <select [(ngModel)]="model.phaseName">
+                                            <option *ngFor="let phase of phases" [value]="phase">
+                                                {{ phase.mar7la_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Level Name </label>
+                                        <select [(ngModel)]="model.levelName">
+                                            <option *ngFor="let level of levels" [value]="level">
+                                                {{ level.level_nama }}
+                                            </option>
+                                        </select>
+                                      </div>
+
+                                    <div class="form-group">
+                                        <label> Class Name</label>
+                                        <select [(ngModel)]="model.className">
+                                            <option *ngFor="let class of classes" [value]="class">
+                                                {{ class.class_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                   <div class="form-group">
+                                        <label> Branch</label>
+                                        <select [(ngModel)]="model.branch">
+                                            <option *ngFor="let branch of branches" [value]="branch">
+                                                {{ branch.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> File Serial Number </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.id" name="id" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Educational Status</label>
+                                        <select [(ngModel)]="model.educationalStatus">
+                                            <option *ngFor="let status of study_status" [value]="status">
+                                                {{ status.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Number of fails in this level </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.student_failure_years" name="student_failure_years" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Student Status</label>
+                                        <select [(ngModel)]="model.studentStatus">
+                                            <option *ngFor="let studentStatus of studentStatus" [value]="studentStatus">
+                                                {{ studentStatus.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="kt-portlet__head kt-portlet__head--lg">
+                                        <div class="kt-portlet__head-label">
+                                            <span class="kt-portlet__head-icon">
+                                                <i class="kt-font-brand flaticon2-line-chart"></i>
+                                            </span>
+                                            <h3 class="kt-portlet__head-text">
+                                                General Data
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Birth Certification No </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.BirthCertNo" name="BirthCertNo" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Source </label>
+                                        <select [(ngModel)]="model.BirthCertSource">
+                                            <option *ngFor="let source of cert_source" [value]="source">
+                                                {{ source.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Date  </label>
+                                        <input type="date" class="form-control" required  
+                                            [(ngModel)]="model.BirthCertDate" name="BirthCertDate" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Birth Location </label>
+                                        <select [(ngModel)]="model.BirthLocation">
+                                            <option *ngFor="let location of birth_loc" [value]="location">
+                                                {{ location.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Government Name  </label>
+                                        <select [(ngModel)]="model.GovName">
+                                            <option *ngFor="let gov of government" [value]="gov">
+                                                {{ gov.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label> City  </label>
+                                        <select [(ngModel)]="model.CityName">
+                                            <option *ngFor="let city of cities" [value]="city">
+                                                {{ city.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label> Elkt3a </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.Elkt3a" name="Elkt3a" />
+
+                                        <label> Street </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.Street" name="Street" />
+
+                                        <label> Elgada </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.Elgada" name="Elgada" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Building </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.Building" name="Building" />
+
+                                        <label> Build Level </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.BuildLevel" name="BuildLevel" />
+
+                                        <label> Apartment No </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.ApartNo" name="ApartNo" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Phone </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.Phone" name="Phone" />
+
+                                        <label> Name In English  </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.NameInEnglish" name="NameInEnglish" />
+                                    </div>
+
+                                    <div class="kt-portlet__head kt-portlet__head--lg">
+                                        <div class="kt-portlet__head-label">
+                                            <span class="kt-portlet__head-icon">
+                                                <i class="kt-font-brand flaticon2-line-chart"></i>
+                                            </span>
+                                            <h3 class="kt-portlet__head-text">
+                                                Parent Data
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Relation Type </label>
+                                        <select [(ngModel)]="model.GuardianRelation">
+                                            <option *ngFor="let relation of relation" [value]="relation">
+                                                {{ relation.def_name }}
+                                            </option>
+                                        </select>
+
+                                        <label> Civil No. </label>
+                                        <input type="number" max="99999999999" class="form-control" required  
+                                            [(ngModel)]="model.GuardianCivilianId" name="GuardianCivilianId" />
+
+                                        <label> Mobile </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.GuardMobile" name="GuardMobile" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Name  </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.GuardianName" name="GuardianName" />
+
+                                        <label> Work Phone </label>
+                                        <input type="tel" class="form-control" required  
+                                            [(ngModel)]="model.WorkPhone" name="WorkPhone" />
+
+                                        <label> Work Name </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.WorkName" name="WorkName" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Job Name  </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.JobName" name="JobName" />
+
+                                        <label> Email </label>
+                                        <input type="email" class="form-control" required  
+                                            [(ngModel)]="model.Email" name="Email" />
+
+                                        <label> Guardgov Name  </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.GuardgovName" name="GuardgovName" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Guard City Name </label>
+                                        <select [(ngModel)]="model.GuardCityName">
+                                            <option *ngFor="let city of cities" [value]="city">
+                                                {{ city.def_name }}
+                                            </option>
+                                        </select>
+
+                                        <label> Kt3a </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.GuardKt3a" name="GuardKt3a" />
+
+                                        <label> Street </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.GuardStreet" name="GuardStreet" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Building </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.GuardBuild" name="GuardBuild" />
+
+                                        <label> Build Level </label>
+                                        <input type="number" class="form-control" required  
+                                            [(ngModel)]="model.GuardBuildLevel" name="GuardBuildLevel" />
+
+                                        <label> Phone  </label>
+                                        <input type="tel" class="form-control" required  
+                                            [(ngModel)]="model.GuardPhone" name="GuardPhone" />
+                                    </div>
+
+                                    <div class="kt-portlet__head kt-portlet__head--lg">
+                                        <div class="kt-portlet__head-label">
+                                            <span class="kt-portlet__head-icon">
+                                                <i class="kt-font-brand flaticon2-line-chart"></i>
+                                            </span>
+                                            <h3 class="kt-portlet__head-text">
+                                                Mother Data
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Name  </label>
+                                        <input type="text" class="form-control" required  
+                                            [(ngModel)]="model.MotherName" name="MotherName" />
+
+                                        <label> Civil No. </label>
+                                        <input type="number" max="99999999999" class="form-control" required  
+                                            [(ngModel)]="model.MotherCivilianId" name="MotherCivilianId" />
+
+                                        <label> Nationality </label>
+                                        <select [(ngModel)]="model.MotherNationality">
+                                            <option *ngFor="let nat of nationalities" [value]="nat">
+                                                {{ nat.def_name }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Phone </label>
+                                        <input type="tel" class="form-control" required  
+                                            [(ngModel)]="model.MotherPhone" name="MotherPhone" />
+
+                                        <label>  Mobile </label>
+                                        <input type="tel" class="form-control" required  
+                                            [(ngModel)]="model.MotherMobile" name="MotherMobile" />
+                                    </div>
+
+
+                                <div class="kt-portlet__foot">
+                                  <div class="kt-form__actions">
+                                    <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
+                                    <button type="reset" (click)="resetForm()"  class="btn btn-secondary">Cancel</button>
+                                  </div>
+                                </div>
+                                </div>
+                              </form>
+                            
+                        </div>
+                    </div>
+    </div>
+</div>
+
+<!--Begin::Row-->
+<div class="row">
+    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
+      <div class="kt-portlet kt-portlet--mobile">
+                        <div class="kt-portlet__head kt-portlet__head--lg">
+                            <div class="kt-portlet__head-label">
+                                <span class="kt-portlet__head-icon">
+                                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                                </span>
+                                <h3 class="kt-portlet__head-title">
+                                    Students
+                                </h3>
+                            </div>
+                            
+                        </div>
+                        <div class="kt-portlet__body">
+
+                            <!--begin: Datatable -->
+                            <table class="table table-striped- table-bordered table-hover table-checkable" >
+                                <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th> Level Name</th>
+                                        <th> Class Name</th>
+                                        <th> Student Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of students">
+                                        <td>{{student.Id}}</td>
+                                        <td>{{student.LevelName}}</td>
+                                        <td>{{student.ClassName}}</td>
+                                        <td>{{student.StudentName}}</td>
+                                        <td> 
+                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
+                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--end: Datatable -->
+                        </div>
+                    </div>
+    </div>
+    
+  </div>
+
+  <!--End::Row-->
