@@ -1,34 +1,50 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { AbsenceStatDataService } from 'src/app/layout/services/AbsenceStatDataService';
+import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort'
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
 	selector: 'kt-absencestat',
 	templateUrl: './AbscenceStatistics.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class AbsenceStatComponent implements OnInit {
-	public absencestat : any[] = [];
+	public levels : any[] = [];
+ 
+
+    modalTitle = 'New Absence'
+
+	displayedColumns: string[] = ['absence_id', 'absence_lev','actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
 		absence_id:0,
-		absenceDate:'',
-		level: '',
-
+        absence_lev: '',
+		absence_date:'',
+		lev_name:''
 	}
 
-	myModel: any = '';
-    constructor( private AbsenceStatDataService: AbsenceStatDataService) {
+    constructor( private AbsenceStatDataService: AbsenceStatDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New Absence'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.absenceDate);
+		// alert(this.model.lib_book_name);
 		this.AbsenceStatDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-			//	this.getabsencestat();
+			//	this.getbooks();
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -41,16 +57,26 @@ export class AbsenceStatComponent implements OnInit {
 	resetForm(){
 		this.model = {
 			absence_id:0,
-			absenceDate:'',
-			level: '',	
+			absence_lev: '',
+			absence_date:'',
+			lev_name:''
 		 }
 	}
 
-	edit(){
+	edit(absence : any){
         this.AbsenceStatDataService.GetById(this.model.absence_id).subscribe(
         {
             next: (result : any)=>{
-				this.absencestat = result['data'][0];
+				this.levels = result['data'][0];
+                this.AbsenceStatDataService.GetById(result['data'][0].absence_id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -59,10 +85,11 @@ export class AbsenceStatComponent implements OnInit {
 
     }
 
-    delete(){
+	delete(student : any){
         this.AbsenceStatDataService.Delete(this.model.absence_id).subscribe(
         {
             next: (result : any)=>{
+                this.AbsenceStatDataService.Delete(result['data'][0].absence_id).subscribe()
 				this.getAbsencestat();
 			},
 			error: (err)=>{
@@ -71,21 +98,27 @@ export class AbsenceStatComponent implements OnInit {
         })
     }
 
+
+
 	getAbsencestat(){
 
 		this.AbsenceStatDataService.Get().subscribe(
         {
 			next: (result : any)=>{
-				//alert("reslt : " + result['data']);
-				this.absencestat = result['data'];
-				//alert("reslt : " + this.pahses[0].mr7la_id);
+				
+				this.levels = result['data'];
+				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+				// alert("error : " + err['data']);
 				console.log(err);
 			}
         })
 	}
+
+ 
+
+
 
 	ngOnInit() {
 		this.getAbsencestat();

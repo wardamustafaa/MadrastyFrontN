@@ -28,9 +28,20 @@ import { StatusComponent } from './Components/Status/Status.component';
 import { SuggesstionsComponent } from './Components/Suggesstions/Suggesstion.component';
 import { SwotComponent } from './Components/Swot/Swot.component';
 import { TestMetricComponent } from './Components/TestMetric/TestMetric.component';
+import { BooksDataComponent } from './pages/components/BooksData/BooksData.component';
+import { AbsenceStatComponent } from './pages/components/AbscenceStatistics/AbscenceStatistics.component';
+import { AbsencePermissionsComponent } from './pages/components/AbsenceAndPermissions/AbsenceAndPermissions.component';
+import { ActivityComponent } from './pages/components/Activities/Activities.component';
+import { AddAbsenceComponent } from './pages/components/AddAbsencePermissions/AddAbsencePermissions.component';
 
 const routes: Routes = [
-  {path:'',component: DepartmentComponent}
+  {path:'department',component: DepartmentComponent},
+  {path:'BooksData',component: BooksDataComponent},
+  {path:'AbsenceCases',component: AbsenceCasesComponent},
+  {path:'AbscenceStatistics',component: AbsenceStatComponent},
+  {path:'AbsencePermissionsComponent',component: AbsencePermissionsComponent},
+  {path:'ActivityComponent',component: ActivityComponent},
+  {path:'AddAbsenceComponent',component: AddAbsenceComponent}
 ];
 
 @NgModule({

@@ -1,37 +1,58 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { AddAbsencePermDataService } from 'src/app/layout/services/AddAbsencePermDataService';
+import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort'
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
 	selector: 'kt-addabsence',
 	templateUrl: './AddAbsencePermissions.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class AddAbsenceComponent implements OnInit {
-	public addabsence : any[] = [];
+	public departments : any[] = [];
+ 
+
+    modalTitle = 'New Absenceprem'
+
+	displayedColumns: string[] = ['ezn_id', 'dep_name', 'ezn_reason','actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
-		id:0,
-		dep_name:'',
-		emp_name:'',
+		ezn_id:0,
+        absent_ezn_id: 0,
+		premit_id:0,
+		emp_id:0,
 		ezn_date: '',
-		ezn_reason:'',
-		time_from:'',
-		time_to:'',
+        ezn_reason: '',
+        time_from: '',
+        time_to: '',
+		ezn_state: '',
+		department:'',
+		employee:''
+	
 	}
 
-	myModel: any = '';
-    constructor( private AddAbsencePermDataService: AddAbsencePermDataService) {
+    constructor( private AddAbsencePermDataService: AddAbsencePermDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New Absenceprem'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.dep_name);
+
 		this.AddAbsencePermDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-	
+
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -43,21 +64,35 @@ export class AddAbsenceComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-			id:0,
-		dep_name:'',
-		emp_name:'',
-		ezn_date: '',
-		ezn_reason:'',
-		time_from:'',
-		time_to:'',
+			ezn_id:0,
+			absent_ezn_id: 0,
+			premit_id:0,
+			emp_id:0,
+			ezn_date: '',
+			ezn_reason: '',
+			time_from: '',
+			time_to: '',
+			ezn_state: '',
+			department:'',
+			employee:''
+		
 		 }
 	}
 
-	edit(){
-        this.AddAbsencePermDataService.GetById(this.model.id).subscribe(
+	edit(absenceprem : any){
+        this.AddAbsencePermDataService.GetById(this.model.ezn_id).subscribe(
         {
             next: (result : any)=>{
-				this.addabsence = result['data'][0];
+				this.departments = result['data'][0];
+                this.AddAbsencePermDataService.GetById(result['data'][0].ezn_id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -66,10 +101,11 @@ export class AddAbsenceComponent implements OnInit {
 
     }
 
-    delete(){
-        this.AddAbsencePermDataService.Delete(this.model.id).subscribe(
+	delete(absenceprem : any){
+        this.AddAbsencePermDataService.Delete(this.model.ezn_id).subscribe(
         {
             next: (result : any)=>{
+                this.AddAbsencePermDataService.Delete(result['data'][0].ezn_id).subscribe()
 				this.getaddabsence();
 			},
 			error: (err)=>{
@@ -78,26 +114,30 @@ export class AddAbsenceComponent implements OnInit {
         })
     }
 
+
+
 	getaddabsence(){
 
 		this.AddAbsencePermDataService.Get().subscribe(
         {
 			next: (result : any)=>{
-	
-				this.addabsence = result['data'];
-			
+				
+				this.departments = result['data'];
+				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+			
 				console.log(err);
 			}
         })
 	}
 
+ 
+
+
+
 	ngOnInit() {
 		this.getaddabsence();
-
-		
 
 	}
 

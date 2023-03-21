@@ -52,6 +52,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 
+import { BooksDataComponent } from './pages/components/BooksData/BooksData.component';
+import { AbsenceStatComponent } from './pages/components/AbscenceStatistics/AbscenceStatistics.component';
+import { AbsencePermissionsComponent } from './pages/components/AbsenceAndPermissions/AbsenceAndPermissions.component';
+import { ActivityComponent } from './pages/components/Activities/Activities.component';
+import { AddAbsenceComponent } from './pages/components/AddAbsencePermissions/AddAbsencePermissions.component';
+
 // declare const toastr: Toastr;
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -121,7 +127,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     StatusComponent,
     SuggesstionsComponent,
     TestMetricComponent,
-    MentalityInquiresComponent
+    MentalityInquiresComponent,
+
+    BooksDataComponent,
+    AbsenceStatComponent,
+    AbsencePermissionsComponent,
+    ActivityComponent,
+    AddAbsenceComponent
 
   ],
   imports: [
