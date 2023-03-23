@@ -57,6 +57,15 @@ import { AbsenceStatComponent } from './pages/components/AbscenceStatistics/Absc
 import { AbsencePermissionsComponent } from './pages/components/AbsenceAndPermissions/AbsenceAndPermissions.component';
 import { ActivityComponent } from './pages/components/Activities/Activities.component';
 import { AddAbsenceComponent } from './pages/components/AddAbsencePermissions/AddAbsencePermissions.component';
+import { BadStudentCardComponent } from './pages/components/BadStudentsCard/BadStudentsCard.component';
+import { BorrowBookComponent } from './pages/components/BorrowBook/BorrowBook.component';
+import { CorridorComponent } from './pages/components/Corridors/Corridors.component';
+import { CorrSupervisionComponent } from './pages/components/CorridorSupervision/CorridorSupervision.component';
+import { DailyAbsenceStatComponent } from './pages/components/DailyAbsenceStat/DailyAbsenceStat.component';
+import { ManagerVisitComponent } from './pages/components/DepManagerVisit/DepManagerVisit.component';
+import { EnzaratComponent } from './pages/components/enzarat/enzarat.component';
+import { EventsComponent } from './pages/components/events/events.component';
+import { FinancialFundComponent } from './pages/components/FinancialFundExpenses/FinancialFundExpenses.component';
 
 // declare const toastr: Toastr;
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -133,7 +142,16 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AbsenceStatComponent,
     AbsencePermissionsComponent,
     ActivityComponent,
-    AddAbsenceComponent
+    AddAbsenceComponent,
+    BadStudentCardComponent,
+    BorrowBookComponent,
+    CorridorComponent,
+    CorrSupervisionComponent,
+    DailyAbsenceStatComponent,
+    ManagerVisitComponent,
+    EnzaratComponent,
+    EventsComponent,
+    FinancialFundComponent
 
   ],
   imports: [

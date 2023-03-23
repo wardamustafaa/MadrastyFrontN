@@ -1,31 +1,45 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { DepManagerVisitDataService } from 'src/app/layout/services/DepManagerVisitDataService';
+import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort'
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
 	selector: 'kt-managervisit',
 	templateUrl: './DepManagerVisit.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class ManagerVisitComponent implements OnInit {
 	public managervisit : any[] = [];
+ 
+
+    modalTitle = 'New Managervisit'
+
+	displayedColumns: string[] = ['id', 'date','actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
 		id:0,
-		date:'',
-		is_agree:0,
-		notes: '',
-
+        date: '',
+		notes:''
 	}
 
-	myModel: any = '';
-    constructor( private DepManagerVisitDataService: DepManagerVisitDataService) {
+    constructor( private DepManagerVisitDataService: DepManagerVisitDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New managervisit'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.date);
+	
 		this.DepManagerVisitDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
@@ -42,17 +56,25 @@ export class ManagerVisitComponent implements OnInit {
 	resetForm(){
 		this.model = {
 			id:0,
-			date:'',
-			is_agree:0,
-			notes: '',
+			date: '',
+			notes:''
 		 }
 	}
 
-	edit(){
+	edit(managervisit : any){
         this.DepManagerVisitDataService.GetById(this.model.id).subscribe(
         {
             next: (result : any)=>{
 				this.managervisit = result['data'][0];
+                this.DepManagerVisitDataService.GetById(result['data'][0].id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -61,10 +83,11 @@ export class ManagerVisitComponent implements OnInit {
 
     }
 
-    delete(){
+	delete(managervisit : any){
         this.DepManagerVisitDataService.Delete(this.model.id).subscribe(
         {
             next: (result : any)=>{
+                this.DepManagerVisitDataService.Delete(result['data'][0].id).subscribe()
 				this.getmanagervisit();
 			},
 			error: (err)=>{
@@ -73,6 +96,8 @@ export class ManagerVisitComponent implements OnInit {
         })
     }
 
+
+
 	getmanagervisit(){
 
 		this.DepManagerVisitDataService.Get().subscribe(
@@ -80,14 +105,18 @@ export class ManagerVisitComponent implements OnInit {
 			next: (result : any)=>{
 				
 				this.managervisit = result['data'];
-		
+				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+				// alert("error : " + err['data']);
 				console.log(err);
 			}
         })
 	}
+
+ 
+
+
 
 	ngOnInit() {
 		this.getmanagervisit();

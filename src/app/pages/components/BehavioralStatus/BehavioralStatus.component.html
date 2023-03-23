@@ -1,152 +1,229 @@
-﻿<div class="row">
-    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
-      <div class="kt-portlet kt-portlet--mobile">
-                        <div class="kt-portlet__head kt-portlet__head--lg">
-                            <div class="kt-portlet__head-label">
-                                <span class="kt-portlet__head-icon">
-                                    <i class="kt-font-brand flaticon2-line-chart"></i>
-                                </span>
-                                <h3 class="kt-portlet__head-title">
-                                    اضافة حالة سلوكية
-                                </h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="kt-portlet__head-wrapper">
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="kt-portlet__body">
+﻿
+<style>
+    mat-table  {
+        background-color: white;    
+    }
 
-          <form class="kt-form" #depForm="ngForm" >
-            <div class="kt-portlet__body">
-              
-                <div class="form-group">
-                    <label>
-                        الصف:
-                    
-                    </label>
-                    <select [(ngModel)]="model.selectedlevel">
-                        <option *ngFor="let level of levels" [value]="level">
-                            {{ level.lev_name }}
-                        </option>
-                    </select>
-</div>
+    th, td{
+        color:black;
+        background-color: white;
+        padding: 10px;
+    }
 
-                    <div class="form-group">
-                    <label>
-                        الفصل:
-                    
-                    </label>
-                
-                    <select [(ngModel)]="model.selectedclass">
-                        <option *ngFor="let class of classes" [value]="class">
-                            {{ class.class_name }}
-                        </option>
-                    </select>
-                 
-                </div>
+    mat-paginator{
+        color:black;
+        font-size: 14px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(213, 215, 216);
+        border-collapse: collapse;
+    }
 
-             
-              
+</style>
 
-                <div class="form-group">
-                    <label>
-                        الطالب:
-                    
-                    </label>
-                 
-                    <select [(ngModel)]="model.selectedStudent">
-                        <option *ngFor="let student of students" [value]="student">
-                            {{ student.student_name }}
-                        </option>
-                    </select>
-                    
-                    </div>
-                    <div class="form-group">
-                    <label>التاريخ:</label>
-                  
-                    <input type="number" class="form-control" required
-                    [(ngModel)]="model.behave_date" name="behave_date" />
-
-                    
-                </div>
-
-
-                <div class="form-group">
-                    <label>تقرير حالة:</label>
-                   
-                            <textarea class="form-control" [(ngModel)]="behave_stat_rep" [ngModelOptions]="{standalone: true}" matInput placeholder="تقرير حالة سلوك الطالب"></textarea>
-        
-             
-                </div>
-
-
-            <div class="kt-portlet__foot">
-              <div class="kt-form__actions">
-                <button type="submit" (click)="submitForm()"  class="btn btn-primary">Submit</button>
-                <button type="reset" (click)="resetForm()"  class="btn btn-secondary">Cancel</button>
-              </div>
-            </div>
-            </div>
-          </form>
-                            
-                        </div>
-                    </div>
-      <!-- <router-outlet></router-outlet> -->
-    </div>
-    
-</div>
-
-  
-  <!--Begin::Row-->
   <div class="row">
     <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
-      <div class="kt-portlet kt-portlet--mobile">
-                        <div class="kt-portlet__head kt-portlet__head--lg">
-                            <div class="kt-portlet__head-label">
-                                <span class="kt-portlet__head-icon">
-                                    <i class="kt-font-brand flaticon2-line-chart"></i>
-                                </span>
-                                <h3 class="kt-portlet__head-title">
-                                    حالة سلوكية
-                                </h3>
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="kt-font-brand flaticon2-line-chart"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        اضافة حالة سلوكية
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            <div class="dropdown dropdown-inline">
+                                <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="la la-download"></i> Export
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="kt-nav">
+                                        <li class="kt-nav__section kt-nav__section--first">
+                                            <span class="kt-nav__section-text">Choose an option</span>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-print"></i>
+                                                <span class="kt-nav__link-text">Print</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-copy"></i>
+                                                <span class="kt-nav__link-text">Copy</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                <span class="kt-nav__link-text">Excel</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-text-o"></i>
+                                                <span class="kt-nav__link-text">CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-pdf-o"></i>
+                                                <span class="kt-nav__link-text">PDF</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            
-                        </div>
-                        <div class="kt-portlet__body">
-
-                            <!--begin: Datatable -->
-                            <table class="table table-striped- table-bordered table-hover table-checkable" >
-                                <thead>
-                                    <tr>
-                                        <th> ID</th>
-                                        <th> Name</th>
-                                        <th> Code</th>
-                                        <th> Description</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let behavstatus of behavstatuses">
-                                        <td>{{behavstatus.lev_name}}</td>
-                                        <td>{{behavstatus.class_name}}</td>
-                                        <td>{{behavstatus.student_name}}</td>
-                                        <td>{{behavstatus.behave_date}}</td>
-                                        <td> 
-                                            <button  (click)="edit()"  class="btn btn-primary">Edit</button> 
-                                            <button  (click)="delete()"  class="btn btn-secondary">Delete</button>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <!--end: Datatable -->
+                            &nbsp;
+                            <button class="btn btn-brand btn-elevate btn-icon-sm" type="button" data-toggle="modal"
+                                data-target="#kt_modal_4_2" id="modalOpener" >
+                                <i class="la la-plus"></i>
+                                New Record
+                            </button>
                         </div>
                     </div>
-      <!-- <router-outlet></router-outlet> -->
-    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+
+                <mat-table #table  [dataSource]="dataSource" matSort class="table table-borderd">
+
+                    <ng-container matColumnDef="behave_stat_id"  >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> المسلسل  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.behave_stat_id}}  </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="lev_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> الصف </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lev_name}}  </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="class_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> الفصل </th>
+                        <td mat-cell *matCellDef="let element"> {{element.class_name}}  </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="behave_stat_rep">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> تقرير الحالة </th>
+                        <td mat-cell *matCellDef="let element"> {{element.behave_stat_rep}}  </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef>تفاعلات</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                                <button class="btn btn-info" matTooltip="Edit" (click)="edit(element)">
+                                    Edit
+                                </button>&nbsp;
     
-  </div>
+                                <button class="btn btn-danger" matTooltip="Delete" (click)="delete(element)">
+                                    Delete
+                                </button>&nbsp;
+                        </mat-cell>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"> </tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+                </mat-table>
+               <mat-paginator [pageSizeOptions]="[10]"></mat-paginator> 
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="modal fade" id="kt_modal_4_2" style="border-radius: 25px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="border-radius: 25px;">
+            <div class="modal-header bg-primary text-light" style="border-radius: 50px;">
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h5 id="exampleModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" style="color: white !important;" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="kt-form" #dep2Form="ngForm">
+                        <div class="kt-portlet__body">
+                          
+                            <div class="form-group">
+                                <label>
+                                    الصف:
+                                
+                                </label>
+                                <select [(ngModel)]="model.lev_name">
+                                    <option *ngFor="let level of levels" [value]="level">
+                                        {{ level.lev_name }}
+                                    </option>
+                                </select>
+            </div>
+            
+                                <div class="form-group">
+                                <label>
+                                    الفصل:
+                                
+                                </label>
+                            
+                                <select [(ngModel)]="model.class_name">
+                                    <option *ngFor="let class of classes" [value]="class">
+                                        {{ class.class_name }}
+                                    </option>
+                                </select>
+                             
+                            </div>
+            
+                         
+                          
+            
+                            <div class="form-group">
+                                <label>
+                                    الطالب:
+                                
+                                </label>
+                             
+                                <select [(ngModel)]="model.student_name">
+                                    <option *ngFor="let student of students" [value]="student">
+                                        {{ student.student_name }}
+                                    </option>
+                                </select>
+                                
+                                </div>
+                                <div class="form-group">
+                                <label>التاريخ:</label>
+                              
+                                <input type="number" class="form-control" required
+                                [(ngModel)]="model.behave_date" name="behave_date" />
+            
+                                
+                            </div>
+            
+            
+                            <div class="form-group">
+                                <label>تقرير حالة:</label>
+                               
+                                        <textarea class="form-control" [(ngModel)]="model.behave_stat_rep"></textarea>
+                    
+                         
+                            </div>
+
+
+                     
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" (click)="submitForm()" class="btn btn-primary">Submit</button>
+                <button type="reset" (click)="resetForm()" id="modalCloser" class="btn btn-secondary"
+                    data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 

@@ -32,7 +32,7 @@ export class BooksDataComponent implements OnInit {
 		lib_classification: '',
         lib_book: '',
         lib_date: '',
-        lib_page_no: '',
+        lib_page_no: ''
 
 	}
 
@@ -68,7 +68,7 @@ export class BooksDataComponent implements OnInit {
 		lib_classification: '',
         lib_book: '',
         lib_date: '',
-        lib_page_no: '',
+        lib_page_no: ''
 		 }
 	}
 

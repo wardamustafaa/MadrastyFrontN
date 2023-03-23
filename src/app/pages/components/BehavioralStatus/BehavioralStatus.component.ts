@@ -1,36 +1,56 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
+﻿import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { BehavioralStatusDataService } from 'src/app/layout/services/BehavioralStatusDataService';
+import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort'
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
 	selector: 'kt-behavstatus',
 	templateUrl: './BehavioralStatus.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class BehavioralStatusComponent implements OnInit {
-	public behavstatus : any[] = [];
+	public levels : any[] = [];
+	classes : any[] = [];
+	students : any[] = [];
+
+    modalTitle = 'New Behavioral'
+
+	displayedColumns: string[] = ['behave_stat_id', 'lev_name', 'class_name', 'behave_stat_rep', 'actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
+		behave_stat_id:0,
+        lev_id: 0,
 		lev_name:'',
-		class_name:'',
-		student_name:'',
-		behave_date: '',
-        behave_stat_rep:'',
-
+		class_id:0,
+		class_name: '',
+        student_id: 0,
+        student_name: '',
+        behave_date: '',
+		behave_stat_rep: ''
 	}
 
-	myModel: any = '';
-    constructor( private BehavioralStatusDataService: BehavioralStatusDataService) {
+    constructor( private BehavioralStatusDataService: BehavioralStatusDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New Behavioral'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.lev_name);
+	
 		this.BehavioralStatusDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-	
+		
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -42,19 +62,32 @@ export class BehavioralStatusComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-            lev_name:'',
-            class_name:'',
-            student_name:'',
-            behave_date: '',
-            behave_stat_rep:'',
+			behave_stat_id:0,
+			lev_id: 0,
+			lev_name:'',
+			class_id:0,
+			class_name: '',
+			student_id: 0,
+			student_name: '',
+			behave_date: '',
+			behave_stat_rep: ''
 		 }
 	}
 
-	edit(){
-        this.BehavioralStatusDataService.GetById(this.model.lev_name).subscribe(
+	edit(behavioral : any){
+        this.BehavioralStatusDataService.GetById(this.model.behave_stat_id).subscribe(
         {
             next: (result : any)=>{
-				this.behavstatus = result['data'][0];
+				this.levels = result['data'][0];
+                this.BehavioralStatusDataService.GetById(result['data'][0].behave_stat_id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -63,11 +96,12 @@ export class BehavioralStatusComponent implements OnInit {
 
     }
 
-    delete(){
-        this.BehavioralStatusDataService.Delete(this.model.lev_name).subscribe(
+	delete(behavioral : any){
+        this.BehavioralStatusDataService.Delete(this.model.behave_stat_id).subscribe(
         {
             next: (result : any)=>{
-				this.getbehavstatus();
+                this.BehavioralStatusDataService.Delete(result['data'][0].behave_stat_id).subscribe()
+				this.getbehavioral();
 			},
 			error: (err)=>{
 				console.log(err);
@@ -75,27 +109,34 @@ export class BehavioralStatusComponent implements OnInit {
         })
     }
 
-	getbehavstatus(){
+
+
+	getbehavioral(){
 
 		this.BehavioralStatusDataService.Get().subscribe(
         {
 			next: (result : any)=>{
-				//alert("reslt : " + result['data']);
-				this.behavstatus = result['data'];
-				//alert("reslt : " + this.pahses[0].mr7la_id);
+				
+				this.levels = result['data'];
+				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+			
 				console.log(err);
 			}
         })
 	}
 
+ 
+
+
+
 	ngOnInit() {
-		this.getbehavstatus();
+		this.getbehavioral();
 
 		
 
 	}
 
 }
+

@@ -1,42 +1,60 @@
-﻿import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
+﻿import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { DailyAbsenceStatDataService } from 'src/app/layout/services/DailyAbsenceStatDataService';
+import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort'
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
-	selector: 'kt-absencestat',
+	selector: 'kt-dailyabsencestat',
 	templateUrl: './DailyAbsenceStat.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-export class AbsenceStatComponent implements OnInit {
-	public absencestat : any[] = [];
+export class DailyAbsenceStatComponent implements OnInit {
+	public Levels : any[] = [];
+	branch : any[] = [];
+
+
+    modalTitle = 'New Absencestat'
+
+	displayedColumns: string[] = ['absence_stat_id', 'lev_name', 'absence_num', 'stu_att_score', 'actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
-		id:0,
+		absence_stat_id:0,
+        lev_id: 0,
 		lev_name:'',
-		branch_name:'',
+		tch3eb:'',
 		total_num: '',
-        absence_num:'',
-        attendance_num:'',
-        stu_att_score:'',
-        teach_total_num:'',
-        teach_absence:'',
-        teach_attend:'',
-        teach_att_score:'',
-
+        attendance_num: '',
+        absence_num: '',
+        stu_att_score: '',
+		teach_total_num: '',
+        teach_attend: '',
+        teach_absence: '',
+        teach_att_score: '',
+		tch3eb_id: ''
 	}
 
-	myModel: any = '';
-    constructor( private DailyAbsenceStatDataService: DailyAbsenceStatDataService) {
+    constructor( private DailyAbsenceStatDataService: DailyAbsenceStatDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New Absencestat'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.lev_name);
+		
 		this.DailyAbsenceStatDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-	
+		
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -48,25 +66,36 @@ export class AbsenceStatComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-			id:0,
-		lev_name:'',
-		branch_name:'',
-		total_num: '',
-        absence_num:'',
-        attendance_num:'',
-        stu_att_score:'',
-        teach_total_num:'',
-        teach_absence:'',
-        teach_attend:'',
-        teach_att_score:'',
+			absence_stat_id:0,
+			lev_id: 0,
+			lev_name:'',
+			tch3eb:'',
+			total_num: '',
+			attendance_num: '',
+			absence_num: '',
+			stu_att_score: '',
+			teach_total_num: '',
+			teach_attend: '',
+			teach_absence: '',
+			teach_att_score: '',
+			tch3eb_id: ''
 		 }
 	}
 
-	edit(){
-        this.DailyAbsenceStatDataService.GetById(this.model.id).subscribe(
+	edit(absencestat : any){
+        this.DailyAbsenceStatDataService.GetById(this.model.absence_stat_id).subscribe(
         {
             next: (result : any)=>{
-				this.absencestat = result['data'][0];
+				this.Levels = result['data'][0];
+                this.DailyAbsenceStatDataService.GetById(result['data'][0].absence_stat_id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -75,10 +104,11 @@ export class AbsenceStatComponent implements OnInit {
 
     }
 
-    delete(){
-        this.DailyAbsenceStatDataService.Delete(this.model.id).subscribe(
+	delete(absencestat : any){
+        this.DailyAbsenceStatDataService.Delete(this.model.absence_stat_id).subscribe(
         {
             next: (result : any)=>{
+                this.DailyAbsenceStatDataService.Delete(result['data'][0].absence_stat_id).subscribe()
 				this.getabsencestat();
 			},
 			error: (err)=>{
@@ -87,21 +117,27 @@ export class AbsenceStatComponent implements OnInit {
         })
     }
 
+
+
 	getabsencestat(){
 
 		this.DailyAbsenceStatDataService.Get().subscribe(
         {
 			next: (result : any)=>{
-			
-				this.getabsencestat = result['data'];
+				
+				this.Levels = result['data'];
 				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+				
 				console.log(err);
 			}
         })
 	}
+
+ 
+
+
 
 	ngOnInit() {
 		this.getabsencestat();
