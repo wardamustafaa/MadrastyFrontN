@@ -1,74 +1,233 @@
-﻿<div class="row">
-    <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
-      <div class="kt-portlet kt-portlet--mobile">
-                        <div class="kt-portlet__head kt-portlet__head--lg">
-                            <div class="kt-portlet__head-label">
-                                <span class="kt-portlet__head-icon">
-                                    <i class="kt-font-brand flaticon2-line-chart"></i>
-                                </span>
-                                <h3 class="kt-portlet__head-title">
-                                    استعراض الكتب
-                                </h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="kt-portlet__head-wrapper">
-                                    
-                                </div>
-                            </div>
-                        </div>
-             
-                    </div>
-      <!-- <router-outlet></router-outlet> -->
-    </div>
-    
-</div>
+﻿
+<style>
+    mat-table  {
+        background-color: white;    
+    }
 
-  
-  <!--Begin::Row-->
+    th, td{
+        color:black;
+        background-color: white;
+        padding: 10px;
+    }
+
+    mat-paginator{
+        color:black;
+        font-size: 14px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(213, 215, 216);
+        border-collapse: collapse;
+    }
+
+</style>
+
   <div class="row">
     <div class="col-xl-12 col-lg-12 order-lg-1 order-xl-1">
-      <div class="kt-portlet kt-portlet--mobile">
-                        <div class="kt-portlet__head kt-portlet__head--lg">
-                            <div class="kt-portlet__head-label">
-                                <span class="kt-portlet__head-icon">
-                                    <i class="kt-font-brand flaticon2-line-chart"></i>
-                                </span>
-                                <h3 class="kt-portlet__head-title">
-                                    استعراض الكتب
-                                </h3>
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__head kt-portlet__head--lg">
+                <div class="kt-portlet__head-label">
+                    <span class="kt-portlet__head-icon">
+                        <i class="kt-font-brand flaticon2-line-chart"></i>
+                    </span>
+                    <h3 class="kt-portlet__head-title">
+                        استعراض الكتب
+                    </h3>
+                </div>
+                <div class="kt-portlet__head-toolbar">
+                    <div class="kt-portlet__head-wrapper">
+                        <div class="kt-portlet__head-actions">
+                            <div class="dropdown dropdown-inline">
+                                <button type="button" class="btn btn-default btn-icon-sm dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="la la-download"></i> Export
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="kt-nav">
+                                        <li class="kt-nav__section kt-nav__section--first">
+                                            <span class="kt-nav__section-text">Choose an option</span>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-print"></i>
+                                                <span class="kt-nav__link-text">Print</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-copy"></i>
+                                                <span class="kt-nav__link-text">Copy</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-excel-o"></i>
+                                                <span class="kt-nav__link-text">Excel</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-text-o"></i>
+                                                <span class="kt-nav__link-text">CSV</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link">
+                                                <i class="kt-nav__link-icon la la-file-pdf-o"></i>
+                                                <span class="kt-nav__link-text">PDF</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            
-                        </div>
-                        <div class="kt-portlet__body">
-
-                            <!--begin: Datatable -->
-                            <table class="table table-striped- table-bordered table-hover table-checkable" >
-                                <thead>
-                                    <tr>
-                                        <th> ID</th>
-                                        <th> Name</th>
-                                        <th> Desc</th>
-                                      
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let dep of deps">
-                                        <td>{{dep.dep_id}}</td>
-                                        <td>{{dep.dep_name}}</td>
-                                        <td>{{dep.dep_desc}}</td>
-                                  
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!--end: Datatable -->
+                            &nbsp;
+                            <button class="btn btn-brand btn-elevate btn-icon-sm" type="button" data-toggle="modal"
+                                data-target="#kt_modal_4_2" id="modalOpener" >
+                                <i class="la la-plus"></i>
+                                New Record
+                            </button>
                         </div>
                     </div>
-      <!-- <router-outlet></router-outlet> -->
-    </div>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+
+                <mat-table #table  [dataSource]="dataSource" matSort class="table table-borderd">
+
+                    <ng-container matColumnDef="lib_id"  >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> المسلسل  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lib_id}}  </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="lib_book_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم الكتاب  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lib_book_name}}  </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="lib_author_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المؤلف  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lib_author_name}}  </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="lib_date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> تاريخ الاصدار  </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lib_date}}  </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef>تفاعلات</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                                <button class="btn btn-info" matTooltip="Edit" (click)="edit(element)">
+                                    Edit
+                                </button>&nbsp;
     
-  </div>
+                                <button class="btn btn-danger" matTooltip="Delete" (click)="delete(element)">
+                                    Delete
+                                </button>&nbsp;
+                        </mat-cell>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"> </tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+                </mat-table>
+               <mat-paginator [pageSizeOptions]="[10]"></mat-paginator> 
+            </div>
+        </div>
+    </div>
 
-  <!--End::Row-->
+</div>
+
+  <div class="modal fade" id="kt_modal_4_2" style="border-radius: 25px;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content" style="border-radius: 25px;">
+            <div class="modal-header bg-primary text-light" style="border-radius: 50px;">
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h5 id="exampleModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" style="color: white !important;" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="kt-form" #dep2Form="ngForm">
+                        <div class="kt-portlet__body">
+                          
+                            <div class="form-group">
+                                <label> رقم السجل </label>
+                                <input type="text" class="form-control" required  
+                                 [(ngModel)]="model.lib_id" name="lib_id" >
+                              </div>
+            
+                              <div class="form-group">
+                                <label>  اسم الكتاب </label>
+                                <input type="text" class="form-control" required  
+                                [(ngModel)]="model.lib_book_name" name="lib_book_name">
+                              </div>
+            
+            
+                              <div class="form-group">
+                                <label> مرجع </label>
+                                <input type="checkbox" class="form-control" required  
+                                [(ngModel)]="model.lib_ref" name="lib_ref">
+                              </div>
+            
+                
+            
+            
+                              <div class="form-group">
+                                <label> التصنيف  </label>
+                                <select [(ngModel)]="model.lib_classification">
+                                    <option *ngFor="let classif of classifs" [value]="classif">
+                                        {{ classif.def_name }}
+                                    </option>
+                                </select>
+                              </div>
+            
+            
+                              <div class="form-group">
+                                <label> كتاب </label>
+                                <input type="checkbox" class="form-control" required  
+                                [(ngModel)]="model.lib_book" name="lib_book">
+                              </div>
+            
+            
+                              <div class="form-group">
+                                <label> التصنيف  </label>
+                                <select [(ngModel)]="model.lib_classification">
+                                    <option *ngFor="let classif of classifs" [value]="classif">
+                                        {{ classif.def_name }}
+                                    </option>
+                                </select>
+                              </div>
+            
+            
+                              <div class="form-group">
+                                <label> اسم المؤلف </label>
+                                <input type="text" class="form-control" required
+                                    [(ngModel)]="model.lib_author_name" name="lib_author_name" />
+                              </div>
+            
+                              <div class="form-group">
+                                <label>تاريخ الاصدار   </label>
+                                <input type="date" class="form-control" required
+                                    [(ngModel)]="model.lib_date" name="lib_date" />
+                              </div>
+            
+                              <div class="form-group">
+                                <label> عدد الصفحات</label>
+                                <input type="number" class="form-control" required
+                                    [(ngModel)]="model.lib_page_no" name="lib_page_no" />
+                              </div>
 
 
-<!-- <kt-show_lib-list></kt-show_lib-list> -->
+                     
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" (click)="submitForm()" class="btn btn-primary">Submit</button>
+                <button type="reset" (click)="resetForm()" id="modalCloser" class="btn btn-secondary"
+                    data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

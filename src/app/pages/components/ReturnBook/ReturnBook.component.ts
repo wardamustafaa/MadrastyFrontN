@@ -1,35 +1,54 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
-import { ReturnBookDataService } from 'src/app/layout/services/ReturnBookDataService';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { BooksDataService } from 'src/app/layout/services/BooksDataService';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
 	selector: 'kt-returnbook',
 	templateUrl: './ReturnBook.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class ReturnBookComponent implements OnInit {
-	public returnbook : any[] = [];
+	public classifs : any[] = [];
+ 
+    modalTitle = 'New Book'
+
+	displayedColumns: string[] = ['lib_id', 'lib_book_name', 'lib_author_name', 'lib_date', 'actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
-		mr7la_id:0,
-		mr7la_name:'',
-		mr7la_code:0,
-		mr7la_desc: '',
+		lib_id:0,
+        lib_book_name: '',
+		lib_author_name:'',
+		lib_ref:'',
+		lib_classification: '',
+        lib_book: '',
+        lib_date: '',
+        lib_page_no: ''
 
 	}
 
-	myModel: any = '';
-    constructor( private ReturnBookDataService: ReturnBookDataService) {
+    constructor( private BooksDataService: BooksDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New Book'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.mr7la_name);
-		this.ReturnBookDataService.Save(this.model).subscribe(
+	
+		this.BooksDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-		
+			
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -41,18 +60,31 @@ export class ReturnBookComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-			mr7la_id:0,
-			mr7la_name:'',
-			mr7la_code:0,
-			mr7la_desc: '',	
+			lib_id:0,
+        lib_book_name: '',
+		lib_author_name:'',
+		lib_ref:'',
+		lib_classification: '',
+        lib_book: '',
+        lib_date: '',
+        lib_page_no: ''
 		 }
 	}
 
-	edit(){
-        this.ReturnBookDataService.GetById(this.model.mr7la_id).subscribe(
+	edit(book : any){
+        this.BooksDataService.GetById(this.model.lib_id).subscribe(
         {
             next: (result : any)=>{
-				this.returnbook = result['data'][0];
+				this.classifs = result['data'][0];
+                this.BooksDataService.GetById(result['data'][0].lib_id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -61,11 +93,12 @@ export class ReturnBookComponent implements OnInit {
 
     }
 
-    delete(){
-        this.ReturnBookDataService.Delete(this.model.mr7la_id).subscribe(
+	delete(student : any){
+        this.BooksDataService.Delete(this.model.lib_id).subscribe(
         {
             next: (result : any)=>{
-				this.getreturnbook();
+                this.BooksDataService.Delete(result['data'][0].lib_id).subscribe()
+				this.getbooks();
 			},
 			error: (err)=>{
 				console.log(err);
@@ -73,24 +106,30 @@ export class ReturnBookComponent implements OnInit {
         })
     }
 
-    getreturnbook(){
 
-		this.ReturnBookDataService.Get().subscribe(
+
+	getbooks(){
+
+		this.BooksDataService.Get().subscribe(
         {
 			next: (result : any)=>{
-				//alert("reslt : " + result['data']);
-				this.returnbook = result['data'];
-				//alert("reslt : " + this.pahses[0].mr7la_id);
+				
+				this.classifs = result['data'];
+				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+		
 				console.log(err);
 			}
         })
 	}
 
+ 
+
+
+
 	ngOnInit() {
-		this.getreturnbook();
+		this.getbooks();
 
 		
 

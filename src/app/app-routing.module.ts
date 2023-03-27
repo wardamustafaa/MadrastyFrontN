@@ -48,6 +48,12 @@ import { MessageComponent } from './pages/components/message/message.component';
 import { NewsInternalExternalComponent } from './pages/components/NewsInternalExternal/NewsInternalExternal.component';
 import { NewTripComponent } from './pages/components/NewTrip/NewTrip.component';
 import { ObserversDistributionComponent } from './pages/components/ObserversDistribution/ObserversDistribution.component';
+import { ReturnBookComponent } from './pages/components/ReturnBook/ReturnBook.component';
+import { SchoolPartyComponent } from './pages/components/SchoolParty/SchoolParty.component';
+import { ShowBooksDataComponent } from './pages/components/ShowBooks/ShowBooks.component';
+import { ShowTa7diersComponent } from './pages/components/ShowTa7diers/ShowTa7diersComponent';
+import { StrategicPLanComponent } from './pages/components/StrategicPlanTeam/StrategicPlanTeam.component';
+import { StudentDistributionComponent } from './pages/components/StudentDistribution/StudentDistribution.component';
 
 const routes: Routes = [
   {path:'department',component: DepartmentComponent},
@@ -71,7 +77,13 @@ const routes: Routes = [
   {path:'MessageComponent',component: MessageComponent},
   {path:'NewsInternalExternalComponent',component: NewsInternalExternalComponent},
   {path:'NewTripComponent',component: NewTripComponent},
-  {path:'ObserversDistributionComponent',component: ObserversDistributionComponent}
+  {path:'ObserversDistributionComponent',component: ObserversDistributionComponent},
+  {path:'ReturnBookComponent',component: ReturnBookComponent},
+  {path:'SchoolPartyComponent',component: SchoolPartyComponent},
+  {path:'ShowBooksDataComponent',component: ShowBooksDataComponent},
+  {path:'ShowTa7diersComponent',component: ShowTa7diersComponent},
+  {path:'StrategicPLanComponent',component: StrategicPLanComponent},
+  {path:'StudentDistributionComponent',component: StudentDistributionComponent}
 ];
 
 @NgModule({

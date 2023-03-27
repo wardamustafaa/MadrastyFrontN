@@ -1,35 +1,55 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-
-import { ShowBooksDataService } from 'src/app/layout/services/ShowBooksDataService';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { BooksDataService } from 'src/app/layout/services/BooksDataService';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
+import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
 	selector: 'kt-showbooks',
 	templateUrl: './ShowBooks.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-export class ShowBooksComponent implements OnInit {
-	public showbooks : any[] = [];
+export class ShowBooksDataComponent implements OnInit {
+	public classifs : any[] = [];
+ 
+
+    modalTitle = 'New Book'
+
+	displayedColumns: string[] = ['lib_id', 'lib_book_name', 'lib_author_name', 'lib_date', 'actions'];
+	dataSource  = new  MatTableDataSource();
+
+    @ViewChild(MatSort, { static: true }) sort!: MatSort; 
+	@ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+
 
 	model = {
-		mr7la_id:0,
-		mr7la_name:'',
-		mr7la_code:0,
-		mr7la_desc: '',
+		lib_id:0,
+        lib_book_name: '',
+		lib_author_name:'',
+		lib_ref:'',
+		lib_classification: '',
+        lib_book: '',
+        lib_date: '',
+        lib_page_no: ''
 
 	}
 
-	myModel: any = '';
-    constructor( private ShowBooksDataService: ShowBooksDataService) {
+    constructor( private BooksDataService: BooksDataService,
+        public layoutService: LayoutService,
+		private toastr: ToastrService) {
+			
+			layoutService.subHeaderTitle = 'New Book'; 
 			
     }
 	
 	submitForm(){
-		alert(this.model.mr7la_name);
-		this.ShowBooksDataService.Save(this.model).subscribe(
+		// alert(this.model.lib_book_name);
+		this.BooksDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-			//	this.getPhases();
+			//	this.getbooks();
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -41,18 +61,31 @@ export class ShowBooksComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-			mr7la_id:0,
-			mr7la_name:'',
-			mr7la_code:0,
-			mr7la_desc: '',	
+			lib_id:0,
+        lib_book_name: '',
+		lib_author_name:'',
+		lib_ref:'',
+		lib_classification: '',
+        lib_book: '',
+        lib_date: '',
+        lib_page_no: ''
 		 }
 	}
 
-	edit(){
-        this.ShowBooksDataService.GetById(this.model.mr7la_id).subscribe(
+	edit(book : any){
+        this.BooksDataService.GetById(this.model.lib_id).subscribe(
         {
             next: (result : any)=>{
-				this.showbooks = result['data'][0];
+				this.classifs = result['data'][0];
+                this.BooksDataService.GetById(result['data'][0].lib_id).subscribe(
+                {
+                    next: (result : any)=>{
+                        this.model = result['data'][0];
+                    },
+                    error: (err)=>{
+                        console.log(err);
+                    }
+                })
 			},
 			error: (err)=>{
 				console.log(err);
@@ -61,11 +94,12 @@ export class ShowBooksComponent implements OnInit {
 
     }
 
-    delete(){
-        this.ShowBooksDataService.Delete(this.model.mr7la_id).subscribe(
+	delete(student : any){
+        this.BooksDataService.Delete(this.model.lib_id).subscribe(
         {
             next: (result : any)=>{
-				this.getshowbooks();
+                this.BooksDataService.Delete(result['data'][0].lib_id).subscribe()
+				this.getbooks();
 			},
 			error: (err)=>{
 				console.log(err);
@@ -73,24 +107,30 @@ export class ShowBooksComponent implements OnInit {
         })
     }
 
-    getshowbooks(){
 
-		this.ShowBooksDataService.Get().subscribe(
+
+	getbooks(){
+
+		this.BooksDataService.Get().subscribe(
         {
 			next: (result : any)=>{
-				//alert("reslt : " + result['data']);
-				this.showbooks = result['data'];
-				//alert("reslt : " + this.pahses[0].mr7la_id);
+				
+				this.classifs = result['data'];
+				
 			},
 			error: (err)=>{
-				alert("error : " + err['data']);
+				// alert("error : " + err['data']);
 				console.log(err);
 			}
         })
 	}
 
+ 
+
+
+
 	ngOnInit() {
-		this.getshowbooks();
+		this.getbooks();
 
 		
 

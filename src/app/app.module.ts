@@ -72,6 +72,12 @@ import { MessageComponent } from './pages/components/message/message.component';
 import { NewsInternalExternalComponent } from './pages/components/NewsInternalExternal/NewsInternalExternal.component';
 import { NewTripComponent } from './pages/components/NewTrip/NewTrip.component';
 import { ObserversDistributionComponent } from './pages/components/ObserversDistribution/ObserversDistribution.component';
+import { ReturnBookComponent } from './pages/components/ReturnBook/ReturnBook.component';
+import { SchoolPartyComponent } from './pages/components/SchoolParty/SchoolParty.component';
+import { ShowBooksDataComponent } from './pages/components/ShowBooks/ShowBooks.component';
+import { ShowTa7diersComponent } from './pages/components/ShowTa7diers/ShowTa7diersComponent';
+import { StrategicPLanComponent } from './pages/components/StrategicPlanTeam/StrategicPlanTeam.component';
+import { StudentDistributionComponent } from './pages/components/StudentDistribution/StudentDistribution.component';
 
 // declare const toastr: Toastr;
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -163,7 +169,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MessageComponent,
     NewsInternalExternalComponent,
     NewTripComponent,
-    ObserversDistributionComponent
+    ObserversDistributionComponent,
+    ReturnBookComponent,
+    SchoolPartyComponent,
+    ShowBooksDataComponent,
+    ShowTa7diersComponent,
+    StrategicPLanComponent,
+    StudentDistributionComponent
 
   ],
   imports: [
