@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { StudentSequenceDataService } from 'src/app/layout/services/StudentSequenceDataService';
+import { StudentDistributionDataService } from 'src/app/layout/services/StudentDistributionDataService';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,17 +7,17 @@ import { ToastrService } from 'ngx-toastr';
 import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
-	selector: 'kt-studentseq',
-	templateUrl: './StudentSequenceInClass.component.html',
+	selector: 'kt-studentdistribution',
+	templateUrl: './StudentDistribution.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StudentSequenceComponent implements OnInit {
+export class StudentDistributionComponent implements OnInit {
 	public levels : any[] = [];
-	classes : any[] = [];
+ 
 
-    modalTitle = 'New Studentseq'
+    modalTitle = 'New Students'
 
-	displayedColumns: string[] = ['student_id', 'lev_name', 'class_name', 'actions'];
+	displayedColumns: string[] = ['twze3_id', 'twze3_lev', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
     @ViewChild(MatSort, { static: true }) sort!: MatSort; 
@@ -25,26 +25,29 @@ export class StudentSequenceComponent implements OnInit {
 
 
 	model = {
+		twze3_id:0,
+        twze3_lev: '',
 		student_id:0,
-        lev_name: '',
-		class_name:''
+		student_name:'',
+		class_id: 0,
+        class_name: ''
 
 	}
 
-    constructor( private StudentSequenceDataService: StudentSequenceDataService,
+    constructor( private StudentDistributionDataService: StudentDistributionDataService,
         public layoutService: LayoutService,
 		private toastr: ToastrService) {
 			
-			layoutService.subHeaderTitle = 'New Studentseq'; 
+			layoutService.subHeaderTitle = 'New Students'; 
 			
     }
 	
 	submitForm(){
 	
-		this.StudentSequenceDataService.Save(this.model).subscribe(
+		this.StudentDistributionDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-	
+		
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -56,18 +59,21 @@ export class StudentSequenceComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
+			twze3_id:0,
+			twze3_lev: '',
 			student_id:0,
-        lev_name: '',
-		class_name:''
+			student_name:'',
+			class_id: 0,
+			class_name: ''
 		 }
 	}
 
-	edit(studentseq : any){
-        this.StudentSequenceDataService.GetById(this.model.student_id).subscribe(
+	edit(student : any){
+        this.StudentDistributionDataService.GetById(this.model.twze3_id).subscribe(
         {
             next: (result : any)=>{
 				this.levels = result['data'][0];
-                this.StudentSequenceDataService.GetById(result['data'][0].student_id).subscribe(
+                this.StudentDistributionDataService.GetById(result['data'][0].twze3_id).subscribe(
                 {
                     next: (result : any)=>{
                         this.model = result['data'][0];
@@ -84,12 +90,12 @@ export class StudentSequenceComponent implements OnInit {
 
     }
 
-	delete(studentseq : any){
-        this.StudentSequenceDataService.Delete(this.model.student_id).subscribe(
+	delete(student : any){
+        this.StudentDistributionDataService.Delete(this.model.twze3_id).subscribe(
         {
             next: (result : any)=>{
-                this.StudentSequenceDataService.Delete(result['data'][0].student_id).subscribe()
-				this.getstudentseq();
+                this.StudentDistributionDataService.Delete(result['data'][0].twze3_id).subscribe()
+				this.getstudentdis();
 			},
 			error: (err)=>{
 				console.log(err);
@@ -99,9 +105,9 @@ export class StudentSequenceComponent implements OnInit {
 
 
 
-	getstudentseq(){
+	getstudentdis(){
 
-		this.StudentSequenceDataService.Get().subscribe(
+		this.StudentDistributionDataService.Get().subscribe(
         {
 			next: (result : any)=>{
 				
@@ -109,7 +115,7 @@ export class StudentSequenceComponent implements OnInit {
 				
 			},
 			error: (err)=>{
-				
+			
 				console.log(err);
 			}
         })
@@ -120,7 +126,7 @@ export class StudentSequenceComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.getstudentseq();
+		this.getstudentdis();
 
 		
 

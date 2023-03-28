@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort'
 import { ToastrService } from 'ngx-toastr';
 import { LayoutService } from 'src/app/layout/services/layout.service';
 
+
 @Component({
 	selector: 'kt-addabsence',
 	templateUrl: './AddAbsencePermissions.component.html',
@@ -15,7 +16,7 @@ export class AddAbsenceComponent implements OnInit {
 	public departments : any[] = [];
  
 
-    modalTitle = 'New Absenceprem'
+    modalTitle = 'الغيابات والاستئذانات'
 
 	displayedColumns: string[] = ['ezn_id', 'dep_name', 'ezn_reason','actions'];
 	dataSource  = new  MatTableDataSource();
@@ -43,7 +44,7 @@ export class AddAbsenceComponent implements OnInit {
         public layoutService: LayoutService,
 		private toastr: ToastrService) {
 			
-			layoutService.subHeaderTitle = 'New Absenceprem'; 
+			layoutService.subHeaderTitle = 'الغيابات والاستئذانات'; 
 			
     }
 	

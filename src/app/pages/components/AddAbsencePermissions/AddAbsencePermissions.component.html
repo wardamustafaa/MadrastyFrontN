@@ -90,41 +90,60 @@
             </div>
             <div class="kt-portlet__body">
 
-                <mat-table #table  [dataSource]="dataSource" matSort class="table table-borderd">
+                <div class="example-container mat-elevation-z8" >
+                    <mat-form-field>
+                    <mat-label>Filter Product</mat-label>
+                    <input matInput type="text"
+                   placeholder="Search product name">
+                  </mat-form-field>
+                  <div class="spinner-container">
+                          <mat-spinner></mat-spinner>
+                      </div>
+                  
+                          <mat-table #table [dataSource]="dataSource" matSort>
+                            <!-- First Column ID-->
+                            <ng-container matColumnDef="ezn_id">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> المسلسل </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> {{element.ezn_id}} </mat-cell>
+                            </ng-container>
+                  
+                            <!-- Second Column -->
+                            <ng-container matColumnDef="dep_name">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> القسم </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> {{element.dep_name}} </mat-cell>
+                            </ng-container>
+                  
+                                  <!-- Third Column -->
+                                   <ng-container matColumnDef="ezn_reason">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> السبب </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.ezn_reason}} </mat-cell>
+                                  </ng-container>
 
-                    <ng-container matColumnDef="ezn_id">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> المسلسل  </th>
-                        <td mat-cell *matCellDef="let element"> {{element.ezn_id}} </td>
-                    </ng-container>
+                    
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="edit">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+                                  color="primary" (click)="edit(element)">
+                                  <mat-icon>edit</mat-icon>
+                                </button> </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="delete">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+                                  (click)="delete(element.id)" color="warn">
+                                  <mat-icon>delete</mat-icon>
+                                </button> </mat-cell>
+                            </ng-container>
+                  
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                          </mat-table>
+                  
+                          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                  
+                        </div>
 
-                    <ng-container matColumnDef="dep_name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> القسم </th>
-                        <td mat-cell *matCellDef="let element"> {{element.dep_name}}  </td>
-                    </ng-container>
-
-
-                    <ng-container matColumnDef="ezn_reason">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> السبب </th>
-                        <td mat-cell *matCellDef="let element"> {{element.ezn_reason}}  </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="actions">
-                        <mat-header-cell *matHeaderCellDef>تفاعلات</mat-header-cell>
-                        <mat-cell *matCellDef="let element">
-                                <button class="btn btn-info" matTooltip="Edit" (click)="edit(element)">
-                                    Edit
-                                </button>&nbsp;
-    
-                                <button class="btn btn-danger" matTooltip="Delete" (click)="delete(element)">
-                                    Delete
-                                </button>&nbsp;
-                        </mat-cell>
-                    </ng-container>
-                
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"> </tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
-                </mat-table>
-               <mat-paginator [pageSizeOptions]="[10]"></mat-paginator> 
             </div>
         </div>
     </div>

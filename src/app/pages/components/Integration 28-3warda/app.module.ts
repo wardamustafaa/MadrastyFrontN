@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -200,9 +198,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
     
     ToastNoAnimationModule.forRoot({
       closeButton: true,

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { StudentSequenceDataService } from 'src/app/layout/services/StudentSequenceDataService';
+import { StrategicPlanTeamDataService } from 'src/app/layout/services/StrategicPlanTeamDataService';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,17 +7,18 @@ import { ToastrService } from 'ngx-toastr';
 import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
-	selector: 'kt-studentseq',
-	templateUrl: './StudentSequenceInClass.component.html',
+	selector: 'kt-strategicplan',
+	templateUrl: './StrategicPlanTeam.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StudentSequenceComponent implements OnInit {
-	public levels : any[] = [];
-	classes : any[] = [];
+export class StrategicPLanComponent implements OnInit {
+	public teamstypes : any[] = [];
+	departments : any[] = [];
+	Employees: any[]=[];
 
-    modalTitle = 'New Studentseq'
+    modalTitle = 'New Plan'
 
-	displayedColumns: string[] = ['student_id', 'lev_name', 'class_name', 'actions'];
+	displayedColumns: string[] = ['id', 'name', 'goals','actions'];
 	dataSource  = new  MatTableDataSource();
 
     @ViewChild(MatSort, { static: true }) sort!: MatSort; 
@@ -25,26 +26,32 @@ export class StudentSequenceComponent implements OnInit {
 
 
 	model = {
-		student_id:0,
-        lev_name: '',
-		class_name:''
+		id:0,
+        type_id: 0,
+		type_name:'',
+		name:'',
+		goals: '',
+        emp_name: '',
+        emp_id: 0,
+        dep_id: 0,
+		dep_name:''
 
 	}
 
-    constructor( private StudentSequenceDataService: StudentSequenceDataService,
+    constructor( private StrategicPlanTeamDataService: StrategicPlanTeamDataService,
         public layoutService: LayoutService,
 		private toastr: ToastrService) {
 			
-			layoutService.subHeaderTitle = 'New Studentseq'; 
+			layoutService.subHeaderTitle = 'New Plan'; 
 			
     }
 	
 	submitForm(){
-	
-		this.StudentSequenceDataService.Save(this.model).subscribe(
+		
+		this.StrategicPlanTeamDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-	
+			
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -56,18 +63,24 @@ export class StudentSequenceComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-			student_id:0,
-        lev_name: '',
-		class_name:''
+			id:0,
+        type_id: 0,
+		type_name:'',
+		name:'',
+		goals: '',
+        emp_name: '',
+        emp_id: 0,
+        dep_id: 0,
+		dep_name:''
 		 }
 	}
 
-	edit(studentseq : any){
-        this.StudentSequenceDataService.GetById(this.model.student_id).subscribe(
+	edit(plan : any){
+        this.StrategicPlanTeamDataService.GetById(this.model.id).subscribe(
         {
             next: (result : any)=>{
-				this.levels = result['data'][0];
-                this.StudentSequenceDataService.GetById(result['data'][0].student_id).subscribe(
+				this.teamstypes = result['data'][0];
+                this.StrategicPlanTeamDataService.GetById(result['data'][0].id).subscribe(
                 {
                     next: (result : any)=>{
                         this.model = result['data'][0];
@@ -84,12 +97,12 @@ export class StudentSequenceComponent implements OnInit {
 
     }
 
-	delete(studentseq : any){
-        this.StudentSequenceDataService.Delete(this.model.student_id).subscribe(
+	delete(plan : any){
+        this.StrategicPlanTeamDataService.Delete(this.model.id).subscribe(
         {
             next: (result : any)=>{
-                this.StudentSequenceDataService.Delete(result['data'][0].student_id).subscribe()
-				this.getstudentseq();
+                this.StrategicPlanTeamDataService.Delete(result['data'][0].id).subscribe()
+				this.getpalns();
 			},
 			error: (err)=>{
 				console.log(err);
@@ -99,13 +112,13 @@ export class StudentSequenceComponent implements OnInit {
 
 
 
-	getstudentseq(){
+	getpalns(){
 
-		this.StudentSequenceDataService.Get().subscribe(
+		this.StrategicPlanTeamDataService.Get().subscribe(
         {
 			next: (result : any)=>{
 				
-				this.levels = result['data'];
+				this.teamstypes = result['data'];
 				
 			},
 			error: (err)=>{
@@ -120,7 +133,7 @@ export class StudentSequenceComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.getstudentseq();
+		this.getpalns();
 
 		
 

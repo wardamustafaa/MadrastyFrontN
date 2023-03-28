@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { StudentSequenceDataService } from 'src/app/layout/services/StudentSequenceDataService';
+import { BooksDataService } from 'src/app/layout/services/BooksDataService';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,17 +7,16 @@ import { ToastrService } from 'ngx-toastr';
 import { LayoutService } from 'src/app/layout/services/layout.service';
 
 @Component({
-	selector: 'kt-studentseq',
-	templateUrl: './StudentSequenceInClass.component.html',
+	selector: 'kt-returnbook',
+	templateUrl: './ReturnBook.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StudentSequenceComponent implements OnInit {
-	public levels : any[] = [];
-	classes : any[] = [];
+export class ReturnBookComponent implements OnInit {
+	public classifs : any[] = [];
+ 
+    modalTitle = 'New Book'
 
-    modalTitle = 'New Studentseq'
-
-	displayedColumns: string[] = ['student_id', 'lev_name', 'class_name', 'actions'];
+	displayedColumns: string[] = ['lib_id', 'lib_book_name', 'lib_author_name', 'lib_date', 'actions'];
 	dataSource  = new  MatTableDataSource();
 
     @ViewChild(MatSort, { static: true }) sort!: MatSort; 
@@ -25,26 +24,31 @@ export class StudentSequenceComponent implements OnInit {
 
 
 	model = {
-		student_id:0,
-        lev_name: '',
-		class_name:''
+		lib_id:0,
+        lib_book_name: '',
+		lib_author_name:'',
+		lib_ref:'',
+		lib_classification: '',
+        lib_book: '',
+        lib_date: '',
+        lib_page_no: ''
 
 	}
 
-    constructor( private StudentSequenceDataService: StudentSequenceDataService,
+    constructor( private BooksDataService: BooksDataService,
         public layoutService: LayoutService,
 		private toastr: ToastrService) {
 			
-			layoutService.subHeaderTitle = 'New Studentseq'; 
+			layoutService.subHeaderTitle = 'New Book'; 
 			
     }
 	
 	submitForm(){
 	
-		this.StudentSequenceDataService.Save(this.model).subscribe(
+		this.BooksDataService.Save(this.model).subscribe(
 			{
 			  next: (result : any)=>{
-	
+			
 				this.resetForm();
 			  },
 			  error: (err)=>{
@@ -56,18 +60,23 @@ export class StudentSequenceComponent implements OnInit {
 
 	resetForm(){
 		this.model = {
-			student_id:0,
-        lev_name: '',
-		class_name:''
+			lib_id:0,
+        lib_book_name: '',
+		lib_author_name:'',
+		lib_ref:'',
+		lib_classification: '',
+        lib_book: '',
+        lib_date: '',
+        lib_page_no: ''
 		 }
 	}
 
-	edit(studentseq : any){
-        this.StudentSequenceDataService.GetById(this.model.student_id).subscribe(
+	edit(book : any){
+        this.BooksDataService.GetById(this.model.lib_id).subscribe(
         {
             next: (result : any)=>{
-				this.levels = result['data'][0];
-                this.StudentSequenceDataService.GetById(result['data'][0].student_id).subscribe(
+				this.classifs = result['data'][0];
+                this.BooksDataService.GetById(result['data'][0].lib_id).subscribe(
                 {
                     next: (result : any)=>{
                         this.model = result['data'][0];
@@ -84,12 +93,12 @@ export class StudentSequenceComponent implements OnInit {
 
     }
 
-	delete(studentseq : any){
-        this.StudentSequenceDataService.Delete(this.model.student_id).subscribe(
+	delete(student : any){
+        this.BooksDataService.Delete(this.model.lib_id).subscribe(
         {
             next: (result : any)=>{
-                this.StudentSequenceDataService.Delete(result['data'][0].student_id).subscribe()
-				this.getstudentseq();
+                this.BooksDataService.Delete(result['data'][0].lib_id).subscribe()
+				this.getbooks();
 			},
 			error: (err)=>{
 				console.log(err);
@@ -99,17 +108,17 @@ export class StudentSequenceComponent implements OnInit {
 
 
 
-	getstudentseq(){
+	getbooks(){
 
-		this.StudentSequenceDataService.Get().subscribe(
+		this.BooksDataService.Get().subscribe(
         {
 			next: (result : any)=>{
 				
-				this.levels = result['data'];
+				this.classifs = result['data'];
 				
 			},
 			error: (err)=>{
-				
+		
 				console.log(err);
 			}
         })
@@ -120,7 +129,7 @@ export class StudentSequenceComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.getstudentseq();
+		this.getbooks();
 
 		
 
